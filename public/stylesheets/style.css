@@ -1,8 +1,10 @@
 /* @import url('https://fonts.googleapis.com/css?family=Germania+One|Rosarivo|Source+Serif+Pro:400,700&display=swap'); */
 @import url('https://fonts.googleapis.com/css?family=Oxygen&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Brawler&display=swap');
 
 body {
-    
+    font-size: 32px;
+    font-family: 'Brawler', 'serif'
 }
 
 h1 {
