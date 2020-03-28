@@ -6,6 +6,7 @@ body {
 	box-sizing: border-box;
 	font-family: "Quicksand", sans-serif;
 	font-size: 62.5%;
+	background-color: #121212;
 	font-size: 10px;
 }
 /*-- Inspiration taken from abdo steif -->
@@ -75,7 +76,7 @@ body {
 .home {
 	width: 100%;
 	height: 100vh;
-	background-image: url(https://pics.me.me/the-dick-only-makes-it-better-the-untold-truth-about-39647326.png);
+	background-image: url(https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b0f6908fa5e81286213c7211276e6b3d&auto=format&fit=crop&w=1500&q=80);
 	background-position: center top;
 	background-size: cover;
 }
