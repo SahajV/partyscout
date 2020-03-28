@@ -4,11 +4,13 @@
 
 const express = require('express');
 const app = express();
-
+const hbs = require('hbs')
 const path = require('path');
 
 app.use(express.static('public'));
 app.use(express.static('files'));
+
+hbs.registerPartials(__dirname + '/views/partials')
 
 // -------------- express initialization -------------- //
 // PORT SETUP - NUMBER SPECIFIC TO THIS SYSTEM
