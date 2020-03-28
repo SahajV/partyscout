@@ -4,4 +4,8 @@ module.exports.set = function (app) {
         res.render('search');
     });
 
+    app.get('/search_worker', (req, res) => {
+        
+    });
+
 }
