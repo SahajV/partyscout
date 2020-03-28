@@ -7,8 +7,8 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 
-/*const auth = require('./auth.js');
-const weather = require('./weather.js');
+const auth = require('./auth.js');
+/*const weather = require('./weather.js');
 const cookies = require('./cookies.js');
 const voting = require('./voting.js');
 const identity = require('./identity.js');
@@ -17,8 +17,12 @@ const profile = require('./profile.js');
 const houses = require('./houses.js');*/
 
 module.exports.set = function(app) {
-    /*auth.set(app);
-    cookies.set(app);
+    app.get('/', function(req, res) {
+        res.render('index');
+    });
+    
+    auth.set(app);
+    /*cookies.set(app);
     weather.set(app);
     voting.set(app);
     identity.set(app);
