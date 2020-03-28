@@ -4,10 +4,12 @@
 
 text {
     font-size: 32px;
+    color: #03DAC6;
     font-family: 'Brawler', 'serif';
 }
 
 h1 {
     font-size: 64px;
+    color: #BB86FC;
     font-family: 'Oxygen', 'sans serif', 'bold'
 }

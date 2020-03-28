@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
 module.exports = router;
 
 const auth = require('./auth.js');
+const search = require('./search.js');
 /*const weather = require('./weather.js');
 const cookies = require('./cookies.js');
 const voting = require('./voting.js');
@@ -20,7 +21,7 @@ module.exports.set = function(app) {
     app.get('/', function(req, res) {
         res.render('index');
     });
-    
+    search.set(app);
     auth.set(app);
     /*cookies.set(app);
     weather.set(app);
