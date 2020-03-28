@@ -29,7 +29,7 @@ module.exports.set = function (app) {
         next();
     }
 
-    async function createListing(client, newListing) {
+    async function createUserData(client, newListing) {
         const result = await client.db("partyScoutUsers").collection("profileData").insertOne(newListing);
         console.log('New Listing created with the following ID: ' + result.insertedId);
         // console.log(result);
@@ -41,7 +41,7 @@ module.exports.set = function (app) {
         try {
             await client.connect();
             //--------------------------NEED COOKIE DATA 
-            await createListing(
+            await createUserData(
                 client,
                 {
                     _id: "idFromCookie1",
