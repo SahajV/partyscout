@@ -9,6 +9,7 @@ module.exports = router;
 
 const auth = require('./auth.js');
 const search = require('./search.js');
+const profile  = require('./profile.js');
 /*const weather = require('./weather.js');
 const cookies = require('./cookies.js');
 const voting = require('./voting.js');
@@ -23,6 +24,7 @@ module.exports.set = function(app) {
     });
     search.set(app);
     auth.set(app);
+    profile.set(app);
     /*cookies.set(app);
     weather.set(app);
     voting.set(app);
