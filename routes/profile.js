@@ -1,21 +1,73 @@
 module.exports.set = function (app) {
     const MongoClient = require('mongodb').MongoClient;
+    const uri = "mongodb+srv://sahajV:BqBCuf7ID4vn7uEh@gameconnectcluster-zoadx.gcp.mongodb.net/test?retryWrites=true&w=majority";
 
-    app.get('/profile', (req, res) => {
+    function getProfileQuery(req, res, next) {
 
-    });
+        res.locals.discordID = req.query.discordID;
+        res.locals.steamID = req.query.steamID;
+        res.locals.leagueID = req.query.leagueID;
+        res.locals.blizzardID = req.query.blizzardID;
+        res.locals.originID = req.query.originID;
+        res.locals.facebookID = req.query.facebookID;
+        res.locals.twitterID = req.query.twitterID;
+        res.locals.snapchatID = req.query.snapchatID;
+        res.locals.epicID = req.query.epicID;
+        res.locals.email = req.query.email;
+        res.locals.phone = req.query.phone;
+        res.locals.age = req.query.age;
+        res.locals.gender = req.query.gender;
+        res.locals.firstname = req.query.firstname;
+        res.locals.lastname = req.query.lastname;
+        res.locals.bio = req.query.bio;
+        res.locals.country = req.query.country;
+        res.locals.province = req.query.province;
+        res.locals.city = req.query.city;
+        res.locals.profileURL = req.query.profileURL;
+        res.locals.languages = req.query.languages;
+
+        next();
+    }
+
+    async function createUserData(client, newListing) {
+        const result = await client.db("partyScoutUsers").collection("profileData").insertOne(newListing);
+        console.log('New Listing created with the following ID: ' + result.insertedId);
+        // console.log(result);
+    }
 
     async function connection(req, res, next) {
-        const uri = "mongodb+srv://sahajV:BqBCuf7ID4vn7uEh@gameconnectcluster-zoadx.gcp.mongodb.net/test?retryWrites=true&w=majority";
         const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
         try {
-            // Connect to the MongoDB cluster
-            console.log('Attempting to connect');
             await client.connect();
-
-            // Make the appropriate DB calls
-            await listDatabases(client);
+            //--------------------------NEED COOKIE DATA 
+            await createUserData(
+                client,
+                {
+                    _id: "idFromCookie1",
+                    discordID: res.locals.discordID,
+                    steamID: res.locals.steamID,
+                    leagueID: res.locals.leagueID,
+                    blizzardID: res.locals.blizzardID,
+                    originID: res.locals.originID,
+                    facebookID: res.locals.facebookID,
+                    twitterID: res.locals.twitterID,
+                    snapchatID: res.locals.snapchatID,
+                    epicID: res.locals.epicID,
+                    email: res.locals.email,
+                    phone: res.locals.phone,
+                    age: res.locals.age,
+                    gender: res.locals.gender,
+                    firstname: res.locals.firstname,
+                    lastname: res.locals.lastname,
+                    bio: res.locals.bio,
+                    country: res.locals.country,
+                    province: res.locals.province,
+                    city: res.locals.city,
+                    profileURL: res.locals.profileURL,
+                    languages: res.locals.languages
+                }
+            );
 
         } catch (e) {
             console.error(e);
@@ -25,23 +77,68 @@ module.exports.set = function (app) {
         }
     };
 
-    async function listDatabases(client) {
-        databasesList = await client.db().admin().listDatabases();
+    async function findUserById(req, res, next) {
+        const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        try {
+            await client.connect();
+            let idOfUser = "idFromCookie1"; //--------------------------NEED COOKIE DATA
+            const result = await client.db("partyScoutUsers").collection("profileData").findOne({ _id: idOfUser });
+            if (result) {
+                console.log('Found a listing in the collection with the id ' + idOfUser);
+                // console.log(result);
+                res.locals.allUserData = result;
+            }
+            else {
+                console.log('No listings found with the id ' + idOfUser)
+            }
 
-        console.log("Databases:");
-        databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-    };
+        } catch (e) {
+            console.error(e);
+        } finally {
+            await client.close();
+            next();
+        }
 
-    app.get('/get_profile', [connection], (req, res) => {
+    }
 
+    async function updateListingById(req, res, next) {
+        const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        try {
+            await client.connect();
+            let userId = "idFromCookie1"; //----------------NEEDS DATA FROM COOKIE
+            const result = await client.db("partyScoutUsers").collection("profileData").updateOne(
+                { _id: userId },
+                { $set: JSON.parse(JSON.stringify(req.query)) }
+            );
+
+            console.log(result.modifiedCount + ' documents(s) was/were updated');
+
+        } catch (e) {
+            console.error(e);
+        } finally {
+            await client.close();
+            next();
+        }
+    }
+
+    app.get('/profile', (req, res) => {
 
     });
 
-    app.post('/post_profile', (req, res) => {
+    app.get('/get_profile', [findUserById], (req, res) => {
+
+        res.send(res.locals.allUserData);
 
     });
 
-    app.post('/update_profile', (req, res) => {
+    app.get('/post_profile', [getProfileQuery, connection], (req, res) => {
+
+        res.send('Created User in Database');
+    });
+
+    app.get('/update_profile', [updateListingById], (req, res) => {
+
+        res.send('Updated User in Database');
 
     });
 
