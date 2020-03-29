@@ -33,16 +33,18 @@ module.exports.set = function (app) {
 
     async function createMatchesArray(req, res, next) {
         res.locals.finalL = [];
-
-        res.locals.allSessions.forEach((session) => {
-            res.locals.finalL.push(session.nameList)
-        })
+            for(var i = 0; i < res.locals.currentTeam.team.length; i++) {
+            let objTemp = await  client.db("userLoginData").collection("users").findOne({_id: res.locals.currentTeam.team[i]});
+            console.log(objTemp)
+            let nameTemp = objTemp.display_name
+            res.locals.finalL.push(nameTemp)
+        }
 
         next();
     }
 
-    app.get('/matches_worker', [getDocumentsInCollection], (req, res) => {
-        res.send(res.locals.currentTeam.team);
+    app.get('/matches_worker', [getDocumentsInCollection, createMatchesArray], (req, res) => {
+        res.send(res.locals.finalL);
 
     });
 
