@@ -14,29 +14,28 @@
                     <div class="row owner">
                         <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-center">
                             <div class="avatar">
-                                <img src="media/favicon.png" alt="Circle Image"
+                                <img src="{{userD.profileURL}}" alt="Circle Image"
                                     class="img-circle img-no-padding img-responsive">
                             </div>
                                 <h4 style="font-size: 32px">{{userD.display_name}}</h4>
                             <div class="name" style="font-size: 16px">
-                                <h4><small>Gamer</small></h4>
+                                <h4><small>{{userD.description}}</small></h4>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3 text-center">
-                            <p>Gamers rise up</p>
+                            <p>{{userD.bio}}</p>
                             <br>
                             <form class="register-form" action="/settings" method="GET">
                                 <button class="btn btn-info" type="submit">Settings</button>
                             </form>
                         </div>
                     </div>
-
-                    <div class="name">
+                    <div>
                         <h4 style="color: white">Name: {{userD.name}}</h4>
                     </div>
-                    <div class="name">
+                    <div>
                         <h4 style="color: white;">Email: {{userD.email}}</h4>
                     </div>
                 </div>

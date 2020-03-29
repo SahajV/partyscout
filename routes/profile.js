@@ -137,6 +137,6 @@ module.exports.set = function (app) {
     });
 
     app.get('/update_profile', [ensureAuthenticated, updateListingById], (req, res) => {
-        res.send('Updated User in Database');
+        res.redirect('/profile');
     });
 }
