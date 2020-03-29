@@ -38,7 +38,7 @@ body{
 
 .cube .side {
   transform:  rotateY(-90deg) translateX(-50%) rotateY(-90deg) translateX(50%) rotateY(90deg); 
-  background-color:white;
+  background-color:#121212;
 }
 
 .cube:focus .front {
