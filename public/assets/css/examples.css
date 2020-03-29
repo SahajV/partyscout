@@ -43,7 +43,7 @@
   color: #FFF; }
 
 .register-background {
-  background-image: url("../paper_img/landscape.jpg");
+  background-image: url("https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80");
   background-position: center center;
   background-size: cover;
   min-height: 100vh;
@@ -78,7 +78,7 @@
   color: #EB5E28; }
 
 .register-card {
-  background-color: #FF8F5E;
+  background-color: #3700b3;
   border-radius: 8px;
   color: #fff;
   max-width: 350px;
@@ -90,7 +90,7 @@
   margin-top: 15px; }
 
 .register-card .title {
-  color: #B33C12;
+  color: #03dac6;
   text-align: center; }
 
 .register-card .btn {
