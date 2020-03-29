@@ -19,16 +19,13 @@
         <h3 id="pastMatches">Load to see</h3>
         
         <div class="wrap">
-            <div class="btn-6" style="margin-top: 50px" onclick="testMethod">find your party<span></span></div>
+            <div class="btn-6" style="margin-top: 50px" onclick="testMethod()">find your party<span></span></div>
         </div>
         <script src="js/button.js"></script>
 
       </div>
     </div>
-  </body>
-</html>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 
     function fetchFromServer() {
@@ -60,7 +57,7 @@
         document.getElementById("pastMatches").innerHTML = s; 
     }
 
-    function testMethod () {
+    function testMethod() {
         var responseArray = [["gang", "gang"], ["gang", "gang"], ["gang", "gang"]]
         var s = "";
 
@@ -81,3 +78,6 @@
     }
 
 </script>
+  </body>
+</html>
+
