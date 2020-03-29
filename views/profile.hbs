@@ -1,198 +1,43 @@
-<head>
-    <link rel="icon" type="image/png" href="media/favicon.png">
-    <title>partyscout</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-
-    <link href="bootstrap3/css/bootstrap.css" rel="stylesheet" />
-    <link href="assets/css/ct-paper.css" rel="stylesheet" />
-    <link href="assets/css/demo.css" rel="stylesheet" />
-    <link href="/assets/css/examples.css" rel="stylesheet" />
-
-    <!--     Fonts and icons     -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
-</head>
-
-<body>
-    <nav class="navbar navbar-relative rnavbar-ct-transparent" role="navigation-demo" id="register-navbar">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Party Scout</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="navigation-example-2">
-                <ul class="nav navbar-nav navbar-right">
-                    <a href="./search" class="btn btn-simple">Find Party</a>
-                    <a href="./profile" class="btn btn-simple">Profile</a>
-                    <a href="./matches" class="btn btn-simple">Matches</a>
-                    <a href="./logout" class="btn btn-simple">Logout</a>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-->
-    </nav>
-
-    <div class="wrapper">
+<!DOCTYPE html>
+<html>
+    <head>
+        {{> head}}
+    </head>
+    <body>
+        {{> topnav}}
+        <div class="wrapper" style="margin-top:150px;">
             <div class="profile-background">
                 <div class="filter-black"></div>
             </div>
-        <div class="profile-content section-nude">
-            <div class="container">
-                <div class="row owner">
-                    <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-center">
-                        <div class="avatar">
-                            <img src="media/favicon.png" alt="Circle Image"
-                                class="img-circle img-no-padding img-responsive">
-                        </div>
-                        <div class="name">
-                            <h4>{{userD.display_name}}<br /><small>Gamer</small></h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3 text-center">
-                        <p>Trying to find gamers </p>
-                        <br />
-                        <button class="btn btn-info"type = "submit">Settings</button>
-                    </div>
-                </div>
-                <div class="profile-tabs">
-                    <div class="nav-tabs-navigation">
-                        <div class="nav-tabs-wrapper">
-                            <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                                <li class="active"><a href="#follows" data-toggle="tab" style="color:#ffffff">Follows</a></li>
-                                <li><a href="#following" data-toggle="tab" style="color: #ffffff">Following</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div id="my-tab-content" class="tab-content">
-                        <div class="tab-pane active" id="follows">
-                            <div class="row">
-                                <div class="col-md-6 col-md-offset-3">
-                                    <ul class="list-unstyled follows">
-                                        <li>
-                                            <div class="row">
-                                                <div class="col-md-2 col-md-offset-0 col-xs-3 col-xs-offset-2">
-                                                    <img src="../assets/paper_img/flume.jpg" alt="Circle Image"
-                                                        class="img-circle img-no-padding img-responsive">
-                                                </div>
-                                                <div class="col-md-7 col-xs-4">
-                                                    <h6>Flume<br /><small>Musical Producer</small></h6>
-                                                </div>
-                                                <div class="col-md-3 col-xs-2">
-                                                    <div class="unfollow" rel="tooltip" title="Unfollow">
-                                                        <label class="checkbox" for="checkbox1">
-                                                            <input type="checkbox" value="" id="checkbox1"
-                                                                data-toggle="checkbox" checked>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <hr />
-                                        <li>
-                                            <div class="row">
-                                                <div class="col-md-2 col-md-offset-0 col-xs-3 col-xs-offset-2">
-                                                    <img src="../assets/paper_img/banks.jpg" alt="Circle Image"
-                                                        class="img-circle img-no-padding img-responsive">
-                                                </div>
-                                                <div class="col-md-7 col-xs-4">
-                                                    <h6>Banks<br /><small>Singer</small></h6>
-                                                </div>
-                                                <div class="col-md-3 col-xs-2">
-                                                    <div class="unfollow" rel="tooltip" title="Unfollow">
-                                                        <label class="checkbox" for="checkbox1">
-                                                            <input type="checkbox" value="" id="checkbox1"
-                                                                data-toggle="checkbox" checked>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+            <div class="profile-content section-nude">
+                <div class="container">
+                    <div class="row owner">
+                        <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-center">
+                            <div class="avatar">
+                                <img src="media/favicon.png" alt="Circle Image"
+                                    class="img-circle img-no-padding img-responsive">
+                            </div>
+                            <div class="name">
+                                <h4>{{userD.display_name}}<br /><small>Gamer</small></h4>
                             </div>
                         </div>
-                        <div class="tab-pane text-center" id="following">
-                            <h3 class="text-muted">Not following anyone yet :(</h3>
-                            <btn class="btn btn-warning btn-fill">Find artists</btn>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 text-center">
+                            <p>Trying to find gamers </p>
+                            <br />
+                            <button class="btn btn-info"type = "submit">Settings</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
-    <footer class="footer-demo section-nude">
-        <div class="container">
-            <nav class="pull-left">
-                <ul>
-
-                    <li>
-                        <a href="/">
-                            Party Scout
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/dashboard">
-                            Dashboard
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="copyright pull-right">
-                &copy; 2020, made with Node.JS + Express</i>
-            </div>
-        </div>
-    </footer>
-
-
-</body>
-
+    </body>
+</html>
 <script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
-
-<!--  Plugins -->
 <script src="assets/js/ct-paper-checkbox.js"></script>
 <script src="assets/js/ct-paper-radio.js"></script>
 <script src="=assets/js/bootstrap-select.js"></script>
 <script src="assets/js/bootstrap-datepicker.js"></script>
-
 <script src="assets/js/ct-paper.js"></script>
-
 <script src="assets/js/demo.js"></script>
-
-<script>
-    // Facebook Pixel Code Don't Delete
-    !function (f, b, e, v, n, t, s) {
-        if (f.fbq) return; n = f.fbq = function () {
-            n.callMethod ?
-                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-        }; if (!f._fbq) f._fbq = n;
-        n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
-        t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
-    }(window,
-        document, 'script', '//connect.facebook.net/en_US/fbevents.js');
-
-    try {
-        fbq('init', '111649226022273');
-        fbq('track', "PageView");
-
-    } catch (err) {
-        console.log('Facebook Track Error:', err);
-    }
-</script>
-<noscript>
-    <img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=111649226022273&ev=PageView&noscript=1" />
-</noscript>
-
-</html>
