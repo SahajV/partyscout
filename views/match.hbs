@@ -13,7 +13,11 @@
             <div class="btn-6" style="margin-top: 50px" onclick="fetchFromServor">Find your parties<span></span></div>
         </div>
 
-        <h1 id="matchText"></h1>
+        <h1>Your Current Matches:</h1>
+        <h4 id="currentMatches">Load to see</h4>
+
+        <h1>Your Past Matches:</h1>
+        <h4 id="pastMatches">Load to see</h4>
         <script src="js/button.js"></script>
 
       </div>
@@ -36,14 +40,21 @@
     }
     function onServerResponse (responseArray) {
         var s = "";
-        
+
         for(int n = 0; n < responseArray.length; n++){
+            s += responseArray[0][n];
+        }
+
+        document.getElementById("currentMatches").innerHTML = s; 
+        s = "";
+        
+        for(int n = 1; n < responseArray.length; n++){
             for(int c = 0; c < responseArray[n].length; c++){
                 s += responseArray[n][c];
             }
         }
 
-        document.getElementById("matchText").innerHTML = s; 
+        document.getElementById("pastMatches").innerHTML = s; 
 
 
     }
