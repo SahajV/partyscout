@@ -63,9 +63,6 @@ module.exports.set = function (app) {
         res.locals.game = gameDict[userInputs[req.user._id]['game']]
         res.locals.preferences = req.query;
         res.locals.preferences['language'] = userInputs[req.user._id]['language'];
-        if ('lane' in res.locals.preferences) {
-            res.locals.preferences['lane'] = {'$ne': res.locals.preferences['lane']} 
-        }
         next();
     }
 
@@ -80,7 +77,7 @@ module.exports.set = function (app) {
             await res.locals.client.connect();
             console.log(collection_name);
             console.log(preferences);
-            const result = await res.locals.client.db("partyScoutUsers").collection(collection_name).find(preferences).toArray((error, documents) => {
+            await res.locals.client.db("partyScoutUsers").collection(collection_name).find(preferences).toArray((error, documents) => {
                 console.log('documents')
                 console.log(documents)
 
@@ -93,7 +90,7 @@ module.exports.set = function (app) {
                 for (idx = 0; idx < documents.length; idx++) {
                     timeElapsed = Date.now() - documents[idx].submissionTime;
                     if (timeElapsed > 604800000 || req.user['_id'].equals(documents[idx]['id'])) { // one week expiry
-                        res.locals.client.db("partyScoutUsers").collection(collection_name).remove(documents[idx]);
+                        res.locals.client.db("partyScoutUsers").collection(collection_name).deleteOne(documents[idx]);
                     }
                     else { // if (req.user._id != documents[idx]['id'])
                         console.log('Potential match')
@@ -101,7 +98,7 @@ module.exports.set = function (app) {
                         matches.push(documents[idx]['id']);
                         if (matches.length + 1 == partySize) {
                             for (idx2 = 0; idx2 < matches.length; idx2++) {
-                                res.locals.client.db("partyScoutUsers").collection(collection_name).remove(matches[idx2]);
+                                res.locals.client.db("partyScoutUsers").collection(collection_name).deleteOne(matches[idx2]);
                             }
                             break;
                         }
