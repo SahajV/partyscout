@@ -100,7 +100,7 @@
   text-align: center; }
 
 .profile-background {
-  background-image: url("../paper_img/profile3.jpg");
+  background-image: url("https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjF9&auto=format&fit=crop&w=1350&q=80");
   background-position: center center;
   background-size: cover;
   height: 300px;
