@@ -27,19 +27,22 @@ module.exports.set = function (app) {
         if (res.locals.matches.length > 0) {
             //Add match database addition code here, res.locals.matches is an array of IDs that are matched with each other
             if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[0] }).count() > 0)
-                await res.locals.client.db("partyScoutUsers").collection("profileData").updateOne({ _id: res.locals.matches[0] }, { $set: { team: res.locals.matches, game: res.locals.game } });
+                await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: res.locals.matches[0] }, { $set: { team: res.locals.matches, game: res.locals.game } });
             else
                 await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: res.locals.matches[0], team: res.locals.matches, game: res.locals.game });
-            if (await db.mycollection.find({ _id: res.locals.matches[1] }).count() > 0)
-                await res.locals.client.db("partyScoutUsers").collection("profileData").updateOne({ _id: res.locals.matches[1] }, { $set: { team: res.locals.matches, game: res.locals.game } });
+
+            if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[1] }).count() > 0)
+                await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: res.locals.matches[1] }, { $set: { team: res.locals.matches, game: res.locals.game } });
             else
                 await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: res.locals.matches[1], team: res.locals.matches, game: res.locals.game });
-            if (await db.mycollection.find({ _id: res.locals.matches[2] }).count() > 0)
-                await res.locals.client.db("partyScoutUsers").collection("profileData").updateOne({ _id: res.locals.matches[2] }, { $set: { team: res.locals.matches, game: res.locals.game } });
+
+            if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[2] }).count() > 0)
+                await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: res.locals.matches[2] }, { $set: { team: res.locals.matches, game: res.locals.game } });
             else
                 await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: res.locals.matches[2], team: res.locals.matches, game: res.locals.game });
-            if (await db.mycollection.find({ _id: res.locals.matches[3] }).count() > 0)
-                await res.locals.client.db("partyScoutUsers").collection("profileData").updateOne({ _id: res.locals.matches[3] }, { $set: { team: res.locals.matches, game: res.locals.game } });
+
+            if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[3] }).count() > 0)
+                await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: res.locals.matches[3] }, { $set: { team: res.locals.matches, game: res.locals.game } });
             else
                 await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: res.locals.matches[3], team: res.locals.matches, game: res.locals.game });
             next();
@@ -86,7 +89,7 @@ module.exports.set = function (app) {
                 console.log(documents)
                 for (idx = 0; idx < documents.length; idx++) {
                     timeElapsed = Date.now() - documents[idx].submissionTime;
-                    if (timeElapsed > 604800000 || req.user['_id'].equals(documents[idx]['id']))  { // one week expiry
+                    if (timeElapsed > 604800000 || req.user['_id'].equals(documents[idx]['id'])) { // one week expiry
                         res.locals.client.db("partyScoutUsers").collection(collection_name).remove(documents[idx]);
                     }
                     else { // if (req.user._id != documents[idx]['id'])
