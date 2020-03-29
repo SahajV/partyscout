@@ -1,82 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-      {{> head}}
-  </head>
-  <body>
+
+<head>
+    {{> head}}
+</head>
+
+<body>
     {{> topnav}}
     <div id="content" style="margin-top:75px">
-      <div align="center">
-          <h2>Hello {{userD.display_name}}!</h2>
+        <div align="center">
+            <h2>Hello {{userD.display_name}}!</h2>
 
-        
 
-        <h1>Your Current Matches:</h1>
-        <h3 id="currentMatches">Load to see</h3>
 
-        <h1>Your Past Matches:</h1>
-        <h3 id="pastMatches">Load to see</h3>
-        
-        <div class="wrap">
-            <div class="btn-6" style="margin-top: 50px" onclick="testMethod()">find your party<span></span></div>
+            <h1>Your Current Matches:</h1>
+            <h3 style="color:aqua" id="currentMatches">Load to see</h3>
+
+            <h1>Your Past Matches:</h1>
+            <h3 style="color:aqua" id="pastMatches">Load to see</h3>
+
+            <div class="wrap">
+                <div class="btn-6" id="fetchB" style="margin-top: 50px">find your party<span></span></div>
+            </div>
+            <script src="js/button.js"></script>
+
         </div>
-        <script src="js/button.js"></script>
-
-      </div>
     </div>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script type="text/javascript">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
 
-    function fetchFromServer() {
-        
-        var ajax_params = {
-            'url'     : "/matches_worker",
-            'type'    : "get",
-            'success' : onServerResponse
-        }
-        
-        $.ajax( ajax_params )
-    }
-    function onServerResponse (responseArray) {
-        var s = "";
-
-        for(int n = 0; n < responseArray.length; n++){
-            s += responseArray[0][n];
-        }
-
-        document.getElementById("currentMatches").innerHTML = s; 
-        s = "";
-        
-        for(int n = 1; n < responseArray.length; n++){
-            for(int c = 0; c < responseArray[n].length; c++){
-                s += responseArray[n][c];
+        $(document).ready(() => {
+            var ajax_params = {
+                'url': "/matches_worker",
+                'type': "get",
+                'success': onServerResponse
             }
-        }
+            $.ajax(ajax_params)
+        });
 
-        document.getElementById("pastMatches").innerHTML = s; 
-    }
-
-    function testMethod() {
-        var responseArray = [["gang", "gang"], ["gang", "gang"], ["gang", "gang"]]
-        var s = "";
-
-        for(int n = 0; n < responseArray.length; n++){
-            s += responseArray[0][n];
-        }
-
-        document.getElementById("currentMatches").innerHTML = s; 
-        s = "";
-        
-        for(int n = 1; n < responseArray.length; n++){
-            for(int c = 0; c < responseArray[n].length; c++){
-                s += responseArray[n][c];
+        function onServerResponse(responseArray) {
+            var s = "";
+            console.log(responseArray)
+            for (int n = 0; n < responseArray.length; n++) {
+                s += responseArray[0][n];
             }
+
+            document.getElementById("currentMatches").innerHTML = s;
+            s = "";
+
+            for (int n = 1; n < responseArray.length; n++) {
+                for (int c = 0; c < responseArray[n].length; c++) {
+                    s += responseArray[n][c];
+                }
+            }
+
+            document.getElementById("pastMatches").innerHTML = s;
         }
 
-        document.getElementById("pastMatches").innerHTML = s; 
-    }
+    </script>
+</body>
 
-</script>
-  </body>
 </html>
-
