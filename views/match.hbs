@@ -16,9 +16,6 @@
             <h1>Your Current Matches:</h1>
             <h3 style="color:aqua" id="currentMatches">Load to see</h3>
 
-            <h1>Your Past Matches:</h1>
-            <h3 style="color:aqua" id="pastMatches">Load to see</h3>
-
             <div class="wrap">
                 <div class="btn-6" id="fetchB" style="margin-top: 50px">find your party<span></span></div>
             </div>
@@ -39,8 +36,7 @@
 
         function onServerResponse(responseArray) {
             console.log(responseArray);
-            document.getElementById('currentMatches').innerHTML = responseArray[0];
-            console.log(responseArray[1])
+            document.getElementById('currentMatches').innerHTML = responseArray;
         }
 
     </script>
