@@ -2,7 +2,6 @@ const {ensureAuthenticated} = require('../config/auth');
 module.exports.MongoClient = require('mongodb').MongoClient;
 module.exports.uri = "mongodb+srv://sahajV:BqBCuf7ID4vn7uEh@gameconnectcluster-zoadx.gcp.mongodb.net/test?retryWrites=true&w=majority";
 
-
 module.exports.createUserData = async (newListing) => {
     const client = new module.exports.MongoClient(module.exports.uri, { useNewUrlParser: true, useUnifiedTopology: true });
     await client.connect();
@@ -10,6 +9,29 @@ module.exports.createUserData = async (newListing) => {
     console.log('New Listing created with the following ID: ' + result.insertedId);
     await client.close();
     // console.log(result);
+}
+
+module.exports.findUserById = async (req, res, next) => {
+    const client = new module.exports.MongoClient(module.exports.uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    try {
+        await client.connect();
+        let idOfUser = req.user._id; //--------------------------NEED COOKIE DATA
+        const result = await client.db("partyScoutUsers").collection("profileData").findOne({ _id: idOfUser });
+        if (result) {
+            console.log('Found a listing in the collection with the id ' + idOfUser);
+            // console.log(result);
+            res.locals.allUserData = result;
+        }
+        else {
+            console.log('No listings found with the id ' + idOfUser)
+        }
+
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+        next();
+    }
 }
 
 module.exports.set = function (app) {
@@ -77,30 +99,6 @@ module.exports.set = function (app) {
         }
     };
 
-    async function findUserById(req, res, next) {
-        const client = new module.exports.MongoClient(module.exports.uri, { useNewUrlParser: true, useUnifiedTopology: true });
-        try {
-            await client.connect();
-            let idOfUser = req.user._id; //--------------------------NEED COOKIE DATA
-            const result = await client.db("partyScoutUsers").collection("profileData").findOne({ _id: idOfUser });
-            if (result) {
-                console.log('Found a listing in the collection with the id ' + idOfUser);
-                // console.log(result);
-                res.locals.allUserData = result;
-            }
-            else {
-                console.log('No listings found with the id ' + idOfUser)
-            }
-
-        } catch (e) {
-            console.error(e);
-        } finally {
-            await client.close();
-            next();
-        }
-
-    }
-
     async function updateListingById(req, res, next) {
         const client = new module.exports.MongoClient(module.exports.uri, { useNewUrlParser: true, useUnifiedTopology: true });
         try {
@@ -125,7 +123,7 @@ module.exports.set = function (app) {
         res.render('profile', {userD: req.user});
     });
 
-    app.get('/get_profile', [ensureAuthenticated, findUserById], (req, res) => {
+    app.get('/get_profile', [ensureAuthenticated, module.exports.findUserById], (req, res) => {
         res.send(res.locals.allUserData);
     });
 
