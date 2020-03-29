@@ -63,6 +63,9 @@ module.exports.set = function (app) {
         res.locals.game = gameDict[userInputs[req.user._id]['game']]
         res.locals.preferences = req.query;
         res.locals.preferences['language'] = userInputs[req.user._id]['language'];
+        if ('lane' in res.locals.preferences) {
+            res.locals.preferences['lane'] = {'$not': res.locals.preferences['lane']} 
+        }
         next();
     }
 
@@ -97,6 +100,9 @@ module.exports.set = function (app) {
                         console.log(documents[idx]);
                         matches.push(documents[idx]['id']);
                         if (matches.length + 1 == partySize) {
+                            for (idx2 = 0; idx2 < matches.length; idx2++) {
+                                res.locals.client.db("partyScoutUsers").collection(collection_name).remove(matches[idx2]);
+                            }
                             break;
                         }
                     }
