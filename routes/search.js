@@ -63,12 +63,12 @@ module.exports.set = function (app) {
                 let matches = [];
 
                 console.log(documents)
-                for (idx in documents) {
+                for (idx = 0; idx < documents.length; idx++) {
                     timeElapsed = Date.now() - documents[idx].submissionTime;
                     if (timeElapsed > 604800000)  { // one week
                         // remove from database?
                     }
-                    else if (req.user._id != documents[idx]['id']) {
+                    else { // if (req.user._id != documents[idx]['id'])
                         console.log('Potential match')
                         console.log(documents[idx]);
                         matches.push(documents[idx]['id']);
@@ -84,21 +84,18 @@ module.exports.set = function (app) {
                 if (matches.length + 1 >= partySize) {
                     console.log('Found matches: ' + matches);
                     res.locals.matches = matches;
-                    //client.close();
                 }
                 else {
                     preferences['id'] = req.user._id;
                     preferences['submissionTime'] = Date.now();
                     console.log(preferences)
-                    const resultNew = res.locals.client.db("partyScoutUsers").collection(collection_name).insertOne(preferences)//.then(client.close());
+                    const resultNew = res.locals.client.db("partyScoutUsers").collection(collection_name).insertOne(preferences);
                     console.log('Added ' + preferences.toString() + ' to ' + collection_name);
                     console.log(resultNew);
                     res.locals.matches = [];
                 }
                 next();
             });
-            console.log('result')
-            console.log(result)
         } catch (e) {
             console.error(e);
             next();
