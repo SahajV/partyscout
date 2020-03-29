@@ -100,12 +100,13 @@
   text-align: center; }
 
 .profile-background {
-  background-image: url("../paper_img/lamp.jpg");
+  background-image: url("../paper_img/profile3.jpg");
   background-position: center center;
   background-size: cover;
   height: 300px;
   position: relative;
-  margin-top: -110px; }
+  margin-top: -110px;
+}
 
 .profile-background .filter-black::after {
   background-color: rgba(0, 0, 0, 0.5);
@@ -119,7 +120,9 @@
   z-index: 1; }
 
 .profile-content {
-  position: relative; }
+  position: relative; 
+  background-color: #121212;
+}
 
 .owner .avatar {
   margin-top: -85px;

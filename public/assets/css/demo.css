@@ -110,6 +110,7 @@
     color: #ddd !important;
 }
 .footer-demo{
+    background-color: #121212;
     background-attachment: fixed;
     position: relative;
     line-height: 20px;
