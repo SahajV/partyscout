@@ -65,8 +65,8 @@ module.exports.set = function (app) {
                 console.log(documents)
                 for (idx = 0; idx < documents.length; idx++) {
                     timeElapsed = Date.now() - documents[idx].submissionTime;
-                    if (timeElapsed > 604800000)  { // one week
-                        // remove from database?
+                    if (timeElapsed > 604800000 || req.user['_id'].equals(documents[idx]['id']))  { // one week expiry
+                        res.locals.client.db("partyScoutUsers").collection(collection_name).remove(documents[idx]);
                     }
                     else { // if (req.user._id != documents[idx]['id'])
                         console.log('Potential match')
