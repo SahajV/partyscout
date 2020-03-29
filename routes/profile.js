@@ -53,7 +53,7 @@ module.exports.set = function (app) {
                     facebookID: res.locals.facebookID,
                     twitterID: res.locals.twitterID,
                     snapchatID: res.locals.snapchatID,
-                    epicID: res.locals.epicID,
+                    epicID: res.locals.epicID,  
                     email: res.locals.email,
                     phone: res.locals.phone,
                     age: res.locals.age,
