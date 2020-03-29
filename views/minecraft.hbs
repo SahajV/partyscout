@@ -7,7 +7,7 @@
         {{> topnav}}
         <div id="content" style="margin-top:75px">
             <div align="center">
-                <form action="gameFinder" method="get">
+                <form action="findMatches" method="get">
 
                     <h1>Mode: </h1>
                     <select id="mode" class="select-css" style="font-family: 'Oxygen'">
@@ -17,10 +17,10 @@
                     
                     <br>
                     <br>
+                    <div class="wrap">
+                        <div class="btn-6" style="margin-top: 50px" onclick="document.forms[0].submit()">find your party<span></span></div>
+                    </div>
                 </form>
-                <div class="wrap">
-                    <div class="btn-6" style="margin-top: 50px" onclick="document.forms[0].submit()">find your party<span></span></div>
-                </div>
                 <script src="js/button.js"></script>
             </div>
         </div>
