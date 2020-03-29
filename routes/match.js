@@ -33,13 +33,12 @@ module.exports.set = function (app) {
 
     async function createMatchesArray(req, res, next) {
         res.locals.finalL = [];
-
-        res.locals.currentTeam.team.forEach((id) => {
-            let objTemp = await  client.db("userLoginData").collection("users").findOne({_id: req.user._id});
+            for(var i = 0; i < res.locals.currentTeam.team.length; i++) {
+            let objTemp = await  client.db("userLoginData").collection("users").findOne({_id: res.locals.currentTeam.team[i]});
             console.log(objTemp)
             let nameTemp = objTemp.display_name
             res.locals.finalL.push(nameTemp)
-        })
+        }
 
         next();
     }

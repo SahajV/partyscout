@@ -30,27 +30,28 @@ module.exports.set = function (app) {
             console.log(res.locals.matches)
             res.locals.matches.push(req.user._id);
 
-            res.locals.matches.forEach(function (item) {
-                if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: item }).count() > 0)
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: item }, { $set: { team: res.locals.matches, game: res.locals.game } });
+            for(var i = 0; i < res.locals.matches.length; i++) {
+                if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[i] }).count() > 0)
+                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: res.locals.matches[i] }, { $set: { team: res.locals.matches, game: res.locals.game } });
                 else
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: item, team: res.locals.matches, game: res.locals.game });
+                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: res.locals.matches[i], team: res.locals.matches, game: res.locals.game });
 
-                if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: item }).count() > 0)
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: item }, { $set: { team: res.locals.matches, game: res.locals.game } });
+                if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[i] }).count() > 0)
+                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: res.locals.matches[i] }, { $set: { team: res.locals.matches, game: res.locals.game } });
                 else
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: item, team: res.locals.matches, game: res.locals.game });
+                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: res.locals.matches[i], team: res.locals.matches, game: res.locals.game });
 
-                if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: item }).count() > 0)
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: item }, { $set: { team: res.locals.matches, game: res.locals.game } });
+                if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[i] }).count() > 0)
+                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: res.locals.matches[i] }, { $set: { team: res.locals.matches, game: res.locals.game } });
                 else
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: item, team: res.locals.matches, game: res.locals.game });
+                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: res.locals.matches[i], team: res.locals.matches, game: res.locals.game });
 
-                if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: item }).count() > 0)
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: item }, { $set: { team: res.locals.matches, game: res.locals.game } });
+                if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[i] }).count() > 0)
+                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: res.locals.matches[i] }, { $set: { team: res.locals.matches, game: res.locals.game } });
                 else
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: item, team: res.locals.matches, game: res.locals.game });
-            })
+                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: res.locals.matches[i], team: res.locals.matches, game: res.locals.game });
+            }
+            
             next();
         }
         else {
