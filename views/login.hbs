@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    {{>head}}
+    <link href="../bootstrap3/css/bootstrap.css" rel="stylesheet" />
+    <link href="../assets/css/ct-paper.css" rel="stylesheet" />
+    <link href="../assets/css/demo.css" rel="stylesheet" />
+    <link href="../assets/css/examples.css" rel="stylesheet" />
 
-<head>
-  {{>head}}
-  <link href="../bootstrap3/css/bootstrap.css" rel="stylesheet" />
-  <link href="../assets/css/ct-paper.css" rel="stylesheet" />
-  <link href="../assets/css/demo.css" rel="stylesheet" />
-  <link href="../assets/css/examples.css" rel="stylesheet" />
-</head>
-
-<body>
-  <div class="wrapper">
-    <div class="register-background">
-      <div class="filter-black"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 ">
-            <div class="register-card">
-              <h2 class="title">Welcome</h3>
+    <!--     Fonts and icons     -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="register-background">
+        <div class="filter-black"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 ">
+              <div class="register-card">
+                <h2 class="title">Welcome</h2>
                 <form class="register-form" action="/login" method="POST">
                   <label>Email</label>
                   <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" />
