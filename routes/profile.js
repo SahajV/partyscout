@@ -1,9 +1,18 @@
 const {ensureAuthenticated} = require('../config/auth');
+module.exports.MongoClient = require('mongodb').MongoClient;
+module.exports.uri = "mongodb+srv://sahajV:BqBCuf7ID4vn7uEh@gameconnectcluster-zoadx.gcp.mongodb.net/test?retryWrites=true&w=majority";
+
+
+module.exports.createUserData = async (newListing) => {
+    const client = new module.exports.MongoClient(module.exports.uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    await client.connect();
+    const result = await client.db("partyScoutUsers").collection("profileData").insertOne(newListing);
+    console.log('New Listing created with the following ID: ' + result.insertedId);
+    await client.close();
+    // console.log(result);
+}
 
 module.exports.set = function (app) {
-    const MongoClient = require('mongodb').MongoClient;
-    const uri = "mongodb+srv://sahajV:BqBCuf7ID4vn7uEh@gameconnectcluster-zoadx.gcp.mongodb.net/test?retryWrites=true&w=majority";
-
     function getProfileQuery(req, res, next) {
 
         res.locals.discordID = req.query.discordID;
@@ -20,8 +29,7 @@ module.exports.set = function (app) {
         res.locals.phone = req.query.phone;
         res.locals.age = req.query.age;
         res.locals.gender = req.query.gender;
-        res.locals.firstname = req.query.firstname;
-        res.locals.lastname = req.query.lastname;
+        res.locals.name = req.query.name;
         res.locals.bio = req.query.bio;
         res.locals.country = req.query.country;
         res.locals.province = req.query.province;
@@ -32,20 +40,10 @@ module.exports.set = function (app) {
         next();
     }
 
-    async function createUserData(client, newListing) {
-        const result = await client.db("partyScoutUsers").collection("profileData").insertOne(newListing);
-        console.log('New Listing created with the following ID: ' + result.insertedId);
-        // console.log(result);
-    }
-
     async function connection(req, res, next) {
-        const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
         try {
-            await client.connect();
             //--------------------------NEED COOKIE DATA 
-            await createUserData(
-                client,
+            await module.exports.createUserData(
                 {
                     _id: req.user._id,
                     discordID: res.locals.discordID,
@@ -62,8 +60,7 @@ module.exports.set = function (app) {
                     phone: res.locals.phone,
                     age: res.locals.age,
                     gender: res.locals.gender,
-                    firstname: res.locals.firstname,
-                    lastname: res.locals.lastname,
+                    name: res.locals.name,
                     bio: res.locals.bio,
                     country: res.locals.country,
                     province: res.locals.province,
@@ -76,13 +73,12 @@ module.exports.set = function (app) {
         } catch (e) {
             console.error(e);
         } finally {
-            await client.close();
             next();
         }
     };
 
     async function findUserById(req, res, next) {
-        const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        const client = new module.exports.MongoClient(module.exports.uri, { useNewUrlParser: true, useUnifiedTopology: true });
         try {
             await client.connect();
             let idOfUser = req.user._id; //--------------------------NEED COOKIE DATA
@@ -106,7 +102,7 @@ module.exports.set = function (app) {
     }
 
     async function updateListingById(req, res, next) {
-        const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        const client = new module.exports.MongoClient(module.exports.uri, { useNewUrlParser: true, useUnifiedTopology: true });
         try {
             await client.connect();
             let userId = req.user._id; //----------------NEEDS DATA FROM COOKIE
