@@ -28,3 +28,24 @@ h1 {
     display: inline-block;
     z-index: -100;
 }
+
+.outer {
+    display: table;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .middle {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  
+  .inner {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    /*whatever width you want*/
+  }
