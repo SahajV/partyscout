@@ -23,7 +23,7 @@ module.exports.set = function (app) {
         }
     });
 
-    app.get('/findMatches', [ensureAuthenticated, initializePreferences, findUserByPreferences], (req, res) => {
+    async function checkMatchConnection(req, res, next) {
         if (res.locals.matches.length > 0) {
             //Add match database addition code here, res.locals.matches is an array of IDs that are matched with each other
             await client.connect();
@@ -44,10 +44,16 @@ module.exports.set = function (app) {
             else
                 await client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: res.locals.matches[3], team: res.locals.matches, game: res.locals.game });
 
+                next();
+
         }
         else {
             res.render('match_failed');
+            next();
         }
+    }
+
+    app.get('/findMatches', [ensureAuthenticated, initializePreferences, findUserByPreferences, checkMatchConnection], (req, res) => {
     });
 
     async function initializePreferences(req, res, next) {
