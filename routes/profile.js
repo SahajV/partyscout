@@ -47,7 +47,7 @@ module.exports.set = function (app) {
             await createUserData(
                 client,
                 {
-                    _id: "idFromCookie1",
+                    _id: req.user._id,
                     discordID: res.locals.discordID,
                     steamID: res.locals.steamID,
                     leagueID: res.locals.leagueID,
@@ -85,7 +85,7 @@ module.exports.set = function (app) {
         const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
         try {
             await client.connect();
-            let idOfUser = "idFromCookie1"; //--------------------------NEED COOKIE DATA
+            let idOfUser = req.user._id; //--------------------------NEED COOKIE DATA
             const result = await client.db("partyScoutUsers").collection("profileData").findOne({ _id: idOfUser });
             if (result) {
                 console.log('Found a listing in the collection with the id ' + idOfUser);
@@ -109,7 +109,7 @@ module.exports.set = function (app) {
         const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
         try {
             await client.connect();
-            let userId = "idFromCookie1"; //----------------NEEDS DATA FROM COOKIE
+            let userId = req.user._id; //----------------NEEDS DATA FROM COOKIE
             const result = await client.db("partyScoutUsers").collection("profileData").updateOne(
                 { _id: userId },
                 { $set: JSON.parse(JSON.stringify(req.query)) }
