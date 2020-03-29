@@ -24,8 +24,8 @@ module.exports.set = function (app) {
     });
 
     app.get('/findMatches', [ensureAuthenticated, initializePreferences, findUserByPreferences], (req, res) => {
-        if (res.locals.matches) {
-            res.render('match', {'matches': matches});
+        if (res.locals.matches.length > 0) {
+            res.render('match', {'matches': res.locals.matches});
         }
         else {
             res.render('match_failed');
@@ -43,48 +43,67 @@ module.exports.set = function (app) {
     }
 
     async function findUserByPreferences(req, res, next) {
-        const client = new profile.MongoClient(profile.uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        res.locals.client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
         const collection_name = res.locals.game + '_collection';
         const preferences = res.locals.preferences; // {language: languageOfUser, rank: rankOfUser, ...}
+        const partySize = parseInt(preferences.partySize);
 
         try {
-            await client.connect();
-            const result = await client.db("partyScoutUsers").collection(collection_name).find(preferences).toArray((error, documents) => {
+            await res.locals.client.connect();
+            console.log(collection_name);
+            console.log(preferences);
+            const result = await res.locals.client.db("partyScoutUsers").collection(collection_name).find(preferences).toArray((error, documents) => {
+                console.log('documents')
+                console.log(documents)
+                
                 if (error) throw error;
+
                 documents.sort( compare );
                 let matches = [];
 
-                for (potentialMatch in documents) {
-                    timeElapsed = Date.now() - potentialMatch.submissionTime;
+                console.log(documents)
+                for (idx in documents) {
+                    timeElapsed = Date.now() - documents[idx].submissionTime;
                     if (timeElapsed > 604800000)  { // one week
                         // remove from database?
                     }
-                    else {
-                        matches.push(potentialMatch.id);
+                    else if (req.user._id != documents[idx]['id']) {
+                        console.log('Potential match')
+                        console.log(documents[idx]);
+                        matches.push(documents[idx]['id']);
+                        if (matches.length + 1 == partySize) {
+                            break;
+                        }
                     }
                 }
                 
-                if (matches.length > 0) {
+                console.log('Matches: ' + matches.toString())
+                console.log('Matches length: ' + matches.length)
+                console.log('Party size: ' + partySize)
+                if (matches.length + 1 >= partySize) {
                     console.log('Found matches: ' + matches);
-                    res.locals.matches = result;
-                    client.close();
+                    res.locals.matches = matches;
+                    //client.close();
                 }
                 else {
                     preferences['id'] = req.user._id;
                     preferences['submissionTime'] = Date.now();
                     console.log(preferences)
-                    const resultNew = client.db("partyScoutUsers").collection(collection_name).insertOne(preferences).then(client.close());
-                    console.log('Added ' + preferences + ' to ' + collection_name);
+                    const resultNew = res.locals.client.db("partyScoutUsers").collection(collection_name).insertOne(preferences)//.then(client.close());
+                    console.log('Added ' + preferences.toString() + ' to ' + collection_name);
                     console.log(resultNew);
                     res.locals.matches = [];
                 }
+                next();
             });
+            console.log('result')
+            console.log(result)
         } catch (e) {
             console.error(e);
-        } finally {
-            console.log('FINISHING UP')
             next();
+        } finally {
+
         }
     }
 
