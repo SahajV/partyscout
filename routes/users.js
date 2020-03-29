@@ -74,7 +74,22 @@ module.exports.set = function (app) {
                                             _id: user._id,
                                             name: user.name,
                                             email: user.email,
-                                            display_name: user.display_name
+                                            display_name: user.display_name,
+                                            discordID: 'None',
+                                            steamID: 'None',
+                                            blizzardID: 'None',
+                                            originID: 'None',
+                                            facebookID: 'None',
+                                            twitterID: 'None',
+                                            snapchatID: 'None',
+                                            epicID: 'None',
+                                            phone: 'None',
+                                            age: 'Not provided',
+                                            gender: 'Not provided',
+                                            bio: 'Gamers rise up',
+                                            description: 'Gamer',
+                                            country: 'Not provided',
+                                            profileURL: '/media/favicon.png'
                                         }
                                     );
                                     req.flash(
