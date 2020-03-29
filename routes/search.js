@@ -1,6 +1,8 @@
+const {ensureAuthenticated} = require('../config/auth'); //PUT ensureAuthenticated on anything that needs to be checked
+
 module.exports.set = function (app) {
 
-    app.get('/search', (req, res) => {
+    app.get('/search', ensureAuthenticated, (req, res) => {
         res.render('search');
     });
 

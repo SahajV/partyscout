@@ -1,3 +1,5 @@
+const {ensureAuthenticated} = require('../config/auth');
+
 module.exports.set = function (app) {
     const MongoClient = require('mongodb').MongoClient;
     const uri = "mongodb+srv://sahajV:BqBCuf7ID4vn7uEh@gameconnectcluster-zoadx.gcp.mongodb.net/test?retryWrites=true&w=majority";
@@ -123,22 +125,22 @@ module.exports.set = function (app) {
         }
     }
 
-    app.get('/profile', (req, res) => {
+    app.get('/profile', ensureAuthenticated, (req, res) => {
 
     });
 
-    app.get('/get_profile', [findUserById], (req, res) => {
+    app.get('/get_profile', [ensureAuthenticated, findUserById], (req, res) => {
 
         res.send(res.locals.allUserData);
 
     });
 
-    app.get('/post_profile', [getProfileQuery, connection], (req, res) => {
+    app.get('/post_profile', [ensureAuthenticated, getProfileQuery, connection], (req, res) => {
 
         res.send('Created User in Database');
     });
 
-    app.get('/update_profile', [updateListingById], (req, res) => {
+    app.get('/update_profile', [ensureAuthenticated, updateListingById], (req, res) => {
 
         res.send('Updated User in Database');
 
