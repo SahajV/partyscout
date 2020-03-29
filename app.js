@@ -5,14 +5,11 @@
 const express = require('express');
 const app = express();
 const hbs = require('hbs')
-const ejs = require('ejs')
 const path = require('path');
-const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-const engines = require('consolidate');
 
 
 //-----------------------------------------------------------oAuth work---------------------//

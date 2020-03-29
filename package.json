@@ -1,19 +1,29 @@
 {
-    "name": "coolnodeapp",
-    "version": "1.0.0",
-    "description": "node app ",
-    "main": "app.js",
-    "scripts": {
+  "name": "coolnodeapp",
+  "version": "1.0.0",
+  "description": "node app ",
+  "main": "app.js",
+  "scripts": {
     "start": "node app.js"
   },
-    "repository": {
+  "repository": {
     "type": "git",
     "url": ""
   },
-    "author": "",
-    "license": "ISC",
-    "bugs": {
+  "author": "",
+  "license": "ISC",
+  "bugs": {
     "url": ""
   },
-    "homepage": ""
+  "homepage": "",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "hbs": "^4.1.0",
+    "mongoose": "^5.9.6",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   }
+}
