@@ -5,9 +5,46 @@
     </head>
     <body>
         {{> topnav}}
-        <div class="wrapper" style="margin-top:150px;">
-            <!-- CODE HERE -->
-        </div>
+        <h1>Update your profile</h1>
+        <form action="update_profile" method="get">
+            <label for="name" style="color:#03DAC6">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+            <label for="email" style="color:#03DAC6">Email:</label>
+            <input type="text" id="email" name="email" required><br>
+            <label for="display_name" style="color:#03DAC6">Display name:</label>
+            <input type="text" id="display_name" name="display_name" required><br>
+            <label for="discordID" style="color:#03DAC6">Discord:</label>
+            <input type="text" id="discordID" name="discordID"><br>
+            <label for="steamID" style="color:#03DAC6">Steam:</label>
+            <input type="text" id="steamID" name="steamID"><br>
+            <label for="blizzardID" style="color:#03DAC6">Blizzard:</label>
+            <input type="text" id="blizzardID" name="blizzardID"><br>
+            <label for="originID" style="color:#03DAC6">Origin:</label>
+            <input type="text" id="originID" name="originID"><br>
+            <label for="facebookID" style="color:#03DAC6">Facebook:</label>
+            <input type="text" id="facebookID" name="facebookID"><br>
+            <label for="twitterID" style="color:#03DAC6">Twitter:</label>
+            <input type="text" id="twitterID" name="twitterID"><br>
+            <label for="epicID" style="color:#03DAC6">Epic Games:</label>
+            <input type="text" id="epicID" name="epicID"><br>
+            <label for="phone" style="color:#03DAC6">Phone:</label>
+            <input type="text" id="phone" name="phone"><br>
+            <label for="age" style="color:#03DAC6">Age:</label>
+            <input type="text" id="age" name="age"><br>
+            <label for="gender" style="color:#03DAC6">Gender:</label>
+            <input type="text" id="gender" name="gender"><br>
+            <label for="bio" style="color:#03DAC6">Bio:</label>
+            <input type="text" id="bio" name="bio"><br>
+            <label for="description" style="color:#03DAC6">Description:</label>
+            <input type="text" id="description" name="description"><br>
+            <label for="country" style="color:#03DAC6">Country:</label>
+            <input type="text" id="country" name="country"><br>
+
+            <div class="wrap">
+                <div class="btn-6" style="margin-top: 50px" onclick="document.forms[0].submit()">Update settings<span></span></div>
+            </div>
+            <script src="js/button.js"></script>
+        </form>
     </body>
 </html>
 <script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
