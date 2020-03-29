@@ -2,6 +2,10 @@
 @import url('https://fonts.googleapis.com/css?family=Oxygen&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Brawler&display=swap');
 
+html {
+    overflow: hidden;
+}
+
 text {
     font-size: 32px;
     color: #03DAC6;
@@ -12,4 +16,15 @@ h1 {
     font-size: 45px;
     color: #BB86FC;
     font-family: 'Oxygen', 'sans serif';
+}
+
+.fullscreen-bg__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: inline-block;
+    z-index: -100;
 }
