@@ -126,7 +126,7 @@ module.exports.set = function (app) {
     }
 
     app.get('/profile', ensureAuthenticated, (req, res) => {
-
+        res.render('profile', {userD: req.user});
     });
 
     app.get('/get_profile', [ensureAuthenticated, findUserById], (req, res) => {
