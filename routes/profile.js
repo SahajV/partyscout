@@ -14,6 +14,7 @@ module.exports.set = function (app) {
         res.locals.snapchatID = req.query.snapchatID;
         res.locals.epicID = req.query.epicID;
         res.locals.email = req.query.email;
+        res.locals.display_name = req.query.display_name;
         res.locals.phone = req.query.phone;
         res.locals.age = req.query.age;
         res.locals.gender = req.query.gender;
@@ -53,8 +54,9 @@ module.exports.set = function (app) {
                     facebookID: res.locals.facebookID,
                     twitterID: res.locals.twitterID,
                     snapchatID: res.locals.snapchatID,
-                    epicID: res.locals.epicID,
+                    epicID: res.locals.epicID,  
                     email: res.locals.email,
+                    display_name: req.query.display_name,
                     phone: res.locals.phone,
                     age: res.locals.age,
                     gender: res.locals.gender,
