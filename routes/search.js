@@ -64,7 +64,7 @@ module.exports.set = function (app) {
         res.locals.preferences = req.query;
         res.locals.preferences['language'] = userInputs[req.user._id]['language'];
         if ('lane' in res.locals.preferences) {
-            res.locals.preferences['lane'] = {'$not': res.locals.preferences['lane']} 
+            res.locals.preferences['lane'] = {'$ne': res.locals.preferences['lane']} 
         }
         next();
     }
