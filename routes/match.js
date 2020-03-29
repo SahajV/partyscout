@@ -1,6 +1,6 @@
 module.exports.set = function (app) {
 
-    app.get('/match', ensureAuthenticated, (req, res) => {
+    app.get('/matches', ensureAuthenticated, (req, res) => {
         res.render('match');
     });
 
