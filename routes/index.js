@@ -8,6 +8,7 @@ module.exports = router;
 const users = require('./users.js');
 const search = require('./search.js');
 const profile = require('./profile.js');
+const match = require('./match.js');
 
 module.exports.set = function (app) {
   app.get('/', forwardAuthenticated, (req, res) => res.render('index'));
@@ -21,4 +22,5 @@ module.exports.set = function (app) {
   search.set(app);
   users.set(app);
   profile.set(app);
+  match.set(app);
 }
