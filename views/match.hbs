@@ -22,7 +22,6 @@
             <div class="wrap">
                 <div class="btn-6" id="fetchB" style="margin-top: 50px">find your party<span></span></div>
             </div>
-            <script src="js/button.js"></script>
 
         </div>
     </div>
@@ -39,22 +38,9 @@
         });
 
         function onServerResponse(responseArray) {
-            var s = "";
-            console.log(responseArray)
-            for (int n = 0; n < responseArray.length; n++) {
-                s += responseArray[0][n];
-            }
-
-            document.getElementById("currentMatches").innerHTML = s;
-            s = "";
-
-            for (int n = 1; n < responseArray.length; n++) {
-                for (int c = 0; c < responseArray[n].length; c++) {
-                    s += responseArray[n][c];
-                }
-            }
-
-            document.getElementById("pastMatches").innerHTML = s;
+            console.log(responseArray);
+            document.getElementById('currentMatches').innerHTML = responseArray[0];
+            console.log(responseArray[1])
         }
 
     </script>
