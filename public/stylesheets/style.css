@@ -18,6 +18,12 @@ h1 {
     font-family: 'Oxygen', 'sans serif';
 }
 
+h2 {
+    font-size: 35px;
+    color: #377fB3;
+    font-family: 'Oxygen', 'sans serif';
+}
+
 .fullscreen-bg__video {
     position: absolute;
     top: 0;
