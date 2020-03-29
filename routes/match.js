@@ -8,14 +8,17 @@ module.exports.set = function (app) {
     async function getDocumentsInCollection(req, res, next) {
         const client = new module.exports.MongoClient(module.exports.uri, { useNewUrlParser: true, useUnifiedTopology: true });
         try {
+
+
             await client.connect();
-            const result = await client.db("partyScoutUsers").collection("profileData").findOne({});
-            if (result) {
-                res.locals.allUserData = result;
-            }
-            else {
-                console.log('No listings found in this collection')
-            }
+            res.locals.allSessions = await client.db("partyScoutUsers").collection("matchHistory").find({})
+                .toArray()
+                .then(items => {
+                    console.log(`Successfully found ${items.length} documents.`)
+                    items.forEach(console.log)
+                    return items
+                })
+                .catch(err => console.error(`Failed to find documents: ${err}`));
 
         } catch (e) {
             console.error(e);
@@ -23,14 +26,26 @@ module.exports.set = function (app) {
             await client.close();
             next();
         }
+
     }
 
-    app.get('/matches_worker', getDocumentsInCollection, (req, res) => {
-        res.send(res.locals.allUserData);
+    async function createMatchesArray(req, res, next) {
+        res.locals.finalL = [];
+
+        res.locals.allSessions.forEach((session) => {
+            res.locals.finalL.push(session.nameList)
+        })
+
+        next();
+    }
+
+    app.get('/matches_worker', [getDocumentsInCollection, createMatchesArray], (req, res) => {
+        res.send(res.locals.finalL);
+
     });
 
     app.get('/matches', ensureAuthenticated, (req, res) => {
-        res.render('match', {userD: req.user, array: req.groups});
+        res.render('match', { userD: req.user, array: req.groups });
     });
 
 
