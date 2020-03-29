@@ -28,7 +28,3 @@ function redirect() {
   document.getElementById('experiment').focus();
   window.location.href = "/login";
 }
-
-window.onload = () => {
-  window.location.href = "#cube";
-}

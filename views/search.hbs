@@ -1,54 +1,53 @@
-<head>
-    {{> head}}
-</head>
-
-<body>
+<!DOCTYPE html>
+<html>
+  <head>
+      {{> head}}
+  </head>
+  <body>
     {{> topnav}}
-    <section class="home"></section>
+    <div id="content" style="margin-top:125px">
+      <div align="center">
+          <form action="gameFinder" method="get">
+              <h1>Game: </h1>
+              <select id="game" name="game">
+                  <option value="-1">Pick a Game:</option>
+                  <option value="0">League of Legends</option>
+                  <option value="1">CS: GO</option>
+                  <option value="2">Minecraft</option>
+                  <option value="3">Rainbow 6</option>
+                  <option value="4">Just Chat</option>
+              </select>
+              <br>
 
-    <div align="center">
-        <form action="gameFinder" method="get">
-            <h1>Game: </h1>
-            <select id="game" name="game">
-                <option value="-1">Pick a Game:</option>
-                <option value="0">League of Legends</option>
-                <option value="1">CS: GO</option>
-                <option value="2">Minecraft</option>
-                <option value="3">Rainbow 6</option>
-                <option value="4">Just Chat</option>
-            </select>
-            <br>
-
-            <h1>Language: </h1>
-            <select id="language">
-                <option value="0">Chinese</option>
-                <option value="1" selected>English</option>
-                <option value="2">Korean</option>
-                <option value="3">Russian</option>
-                <option value="4">Spanish</option>
-            </select>
-            <br>
-            <button type="submit">Submit</button>
-        </form>
+              <h1>Language: </h1>
+              <select id="language">
+                  <option value="0">Chinese</option>
+                  <option value="1" selected>English</option>
+                  <option value="2">Korean</option>
+                  <option value="3">Russian</option>
+                  <option value="4">Spanish</option>
+              </select>
+              <br>
+              <button type="submit">Submit</button>
+          </form>
+      </div>
+  
+      <div class="mm-dropdown" width="500">
+        <div class="textfirst">Select<img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-128.png" width="10" height="10" class="down" /></div>
+        <ul>
+          <li class="input-option" data-value="1">
+            <img src="https://cdn2.iconfinder.com/data/icons/designers-and-developers-icon-set/32/image-512.png" alt="" width="20" height="20" /> Text1
+          </li>
+          <li class="input-option" data-value="2">
+            <img src="https://cdn2.iconfinder.com/data/icons/designers-and-developers-icon-set/32/image-512.png" alt="" width="20" height="20" /> Text2
+          </li>
+          <li class="input-option" data-value="3">
+            <img src="https://cdn2.iconfinder.com/data/icons/designers-and-developers-icon-set/32/image-512.png" alt="" width="20" height="20" /> Text3
+          </li>
+        </ul>
+        <input type="hidden" class="option" name="namesubmit" value="" />
+      </div>
     </div>
-
-    <!-- Dev. by munkgorn -->
-<!-- Use This! #just fix width+height IMG  -->
-<div class="mm-dropdown" width="500">
-  <div class="textfirst">Select<img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-128.png" width="10" height="10" class="down" /></div>
-  <ul>
-    <li class="input-option" data-value="1">
-      <img src="https://cdn2.iconfinder.com/data/icons/designers-and-developers-icon-set/32/image-512.png" alt="" width="20" height="20" /> Text1
-    </li>
-    <li class="input-option" data-value="2">
-      <img src="https://cdn2.iconfinder.com/data/icons/designers-and-developers-icon-set/32/image-512.png" alt="" width="20" height="20" /> Text2
-    </li>
-    <li class="input-option" data-value="3">
-      <img src="https://cdn2.iconfinder.com/data/icons/designers-and-developers-icon-set/32/image-512.png" alt="" width="20" height="20" /> Text3
-    </li>
-  </ul>
-  <input type="hidden" class="option" name="namesubmit" value="" />
-</div>
-<!-- End This -->
-</body>
+  </body>
+</html>
 <script src="js/dropdown.js"></script>

@@ -5,13 +5,15 @@
     </head>
     <body>
         {{> topnav}}
-        <h1 class="mt-4">Dashboard</h1>
-        <br>
-        <h2 class="lead mb-3">Welcome {{user}}</h2>
-        <br>
-        <div class="wrap">
-            <a href="/logout" class="btn-6">Logout<span></span></a>
-        </div>
-        <script src="js/button.js"></script>
+        <div id="content" style="margin-top:125px">
+            <h1 class="mt-4">Dashboard</h1>
+            <br>
+            <h2 class="lead mb-3">Welcome {{user}}</h2>
+            <br>
+            <div class="wrap">
+                <a href="/logout" class="btn-6">Logout<span></span></a>
+            </div>
+        </div>   
     </body>
 </html>
+<script src="js/button.js"></script>
