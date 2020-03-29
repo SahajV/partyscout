@@ -21,7 +21,7 @@ module.exports.set = function (app) {
             //     .catch(err => console.error(`Failed to find documents: ${err}`));
 
             res.locals.currentTeam = await  client.db("partyScoutUsers").collection("matchHistory").findOne({_id: req.user._id});
-
+            console.log(res.locals.currentTeam)
         } catch (e) {
             console.error(e);
         } finally {

@@ -26,6 +26,9 @@ module.exports.set = function (app) {
     async function checkMatchConnection(req, res, next) {
         if (res.locals.matches.length > 0) {
             //Add match database addition code here, res.locals.matches is an array of IDs that are matched with each other
+            console.log('this is the match')
+            console.log(res.locals.matches)
+
             if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[0] }).count() > 0)
                 await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: res.locals.matches[0] }, { $set: { team: res.locals.matches, game: res.locals.game } });
             else
