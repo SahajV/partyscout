@@ -15,7 +15,7 @@ module.exports.findUserById = async (req, res, next) => {
     const client = new module.exports.MongoClient(module.exports.uri, { useNewUrlParser: true, useUnifiedTopology: true });
     try {
         await client.connect();
-        let idOfUser = req.user._id; //--------------------------NEED COOKIE DATA
+        let idOfUser = 'id' in req.query ? req.query.id : req.user._id; //--------------------------NEED COOKIE DATA
         const result = await client.db("partyScoutUsers").collection("profileData").findOne({ _id: idOfUser });
         if (result) {
             console.log('Found a listing in the collection with the id ' + idOfUser);
@@ -119,8 +119,8 @@ module.exports.set = function (app) {
         }
     }
 
-    app.get('/profile', ensureAuthenticated, (req, res) => {
-        res.render('profile', {userD: req.user});
+    app.get('/profile', [ensureAuthenticated, module.exports.findUserById], (req, res) => {
+        res.render('profile', {userD: res.locals.allUserData});
     });
 
     app.get('/get_profile', [ensureAuthenticated, module.exports.findUserById], (req, res) => {

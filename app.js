@@ -69,8 +69,10 @@ app.set('port', process.env.PORT || 8080);
 let routes = require('./routes');
 routes.set(app);
 
-app.get('*', function(req, res) {
-    res.status(404).send('Page not found.');
+const { ensureAuthenticated } = require('./config/auth');
+
+app.get('*', ensureAuthenticated, function(req, res) {
+    res.status(404).render('notfound');
 });
 
 // -------------- listener -------------- //
