@@ -16,14 +16,12 @@ $(function() {
   });
 
 function rotate() {
-  console.log('roat')
   document.getElementById("cube").tabIndex = -1;
   document.getElementById('cube').focus();
-  setTimeout(redirect, 1010);
+  setTimeout(redirect, 1000);
 }
 
 function redirect() {
-  console.log('redir')
   document.getElementById('cube').removeAttribute("tabindex");
   document.getElementById('experiment').focus();
   window.location.href = "/login";
