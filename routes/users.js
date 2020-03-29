@@ -1,8 +1,8 @@
-const express = require('express');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 // Load User model
 const User = require('../models/User');
+const profile = require('./profile.js');
 const { forwardAuthenticated } = require('../config/auth');
 
 module.exports.set = function (app) {
@@ -66,9 +66,17 @@ module.exports.set = function (app) {
                         bcrypt.hash(newUser.password, salt, (err, hash) => {
                             if (err) throw err;
                             newUser.password = hash;
-                            newUser
-                                .save()
+                            newUser.save()
                                 .then(user => {
+                                    console.log('Created: ' + user);
+                                    profile.createUserData(
+                                        {
+                                            _id: user._id,
+                                            name: user.name,
+                                            email: user.email,
+                                            display_name: user.display_name
+                                        }
+                                    );
                                     req.flash(
                                         'success_msg',
                                         'You are now registered and can log in'
