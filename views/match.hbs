@@ -9,15 +9,17 @@
       <div align="center">
           <h2>Hello {{userD.display_name}}!</h2>
 
-        <div class="wrap">
-            <div class="btn-6" style="margin-top: 50px" onclick="fetchFromServor">Find your parties<span></span></div>
-        </div>
+        
 
         <h1>Your Current Matches:</h1>
-        <h4 id="currentMatches">Load to see</h4>
+        <h3 id="currentMatches">Load to see</h3>
 
         <h1>Your Past Matches:</h1>
-        <h4 id="pastMatches">Load to see</h4>
+        <h3 id="pastMatches">Load to see</h3>
+        
+        <div class="wrap">
+            <div class="btn-6" style="margin-top: 50px" onclick="document.forms[0].submit()">find your party<span></span></div>
+        </div>
         <script src="js/button.js"></script>
 
       </div>
