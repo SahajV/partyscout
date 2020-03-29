@@ -2,13 +2,18 @@
 
 <form action="/register" method="POST">
   <div class="form-group">
-    <label for="name">Name</label>
+    <label for="name">Name (other users cannot see this by default)</label>
     <input type="name" id="name" name="name" class="form-control" placeholder="Enter Name" value="" />
   </div>
 
   <div class="form-group">
-    <label for="email">Email</label>
+    <label for="email">Email (other users cannot see this by default)</label>
     <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" value="" />
+  </div>
+
+  <div class="display_name">
+    <label for="display_name">Display Name (other users can see this)</label>
+    <input type="name" id="display_name" name="display_name" class="form-control" placeholder="Enter Display Name" value="" />
   </div>
 
   <div class="form-group">
@@ -18,8 +23,12 @@
 
   <div class="form-group">
     <label for="password2">Confirm Password</label>
-    <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password"
-      value="" />
+    <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password" value="" />
+  </div>
+
+  <div class="form-group">
+    <input type="checkbox" id="age" name="age" class="form-control" value="eligible" />
+    <label for="age">I am 13 or older</label><br>
   </div>
 
   <button type="submit" class="btn btn-primary btn-block">

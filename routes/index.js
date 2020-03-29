@@ -14,7 +14,7 @@ module.exports.set = function (app) {
 
   app.get('/dashboard', ensureAuthenticated, (req, res) =>
     res.render('dashboard', {
-      user: req.user.name
+      user: req.user.display_name
     })
   );
 

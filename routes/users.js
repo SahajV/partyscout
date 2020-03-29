@@ -14,19 +14,23 @@ module.exports.set = function (app) {
 
     // Register
     app.post('/register', (req, res) => {
-        const { name, email, password, password2 } = req.body;
+        const { name, email, display_name, password, password2, age } = req.body;
         let errors = [];
 
-        if (!name || !email || !password || !password2) {
-            errors.push('Please enter all fields');
+        if (!age) {
+            errors.push('You are not old enough to use this service yet.');
+        }
+
+        if (!name || !email || !display_name || !password || !password2) {
+            errors.push('Please enter all fields.');
         }
 
         if (password != password2) {
-            errors.push('Passwords do not match');
+            errors.push('Passwords do not match.');
         }
 
         if (password.length < 6) {
-            errors.push('Password must be at least 6 characters');
+            errors.push('Password must be at least 6 characters.');
         }
 
         if (errors.length > 0) {
@@ -34,6 +38,7 @@ module.exports.set = function (app) {
                 errors: errors,
                 name: name,
                 email: email,
+                display_name: display_name,
                 password: password,
                 password2: password2
             });
@@ -45,6 +50,7 @@ module.exports.set = function (app) {
                         errors: errors,
                         name,
                         email,
+                        display_name,
                         password,
                         password2
                     });
@@ -52,6 +58,7 @@ module.exports.set = function (app) {
                     const newUser = new User({
                         name,
                         email,
+                        display_name,
                         password
                     });
 
