@@ -1,3 +1,5 @@
+const {ensureAuthenticated} = require('../config/auth');
+
 module.exports.set = function (app) {
     const MongoClient = require('mongodb').MongoClient;
     const uri = "mongodb+srv://sahajV:BqBCuf7ID4vn7uEh@gameconnectcluster-zoadx.gcp.mongodb.net/test?retryWrites=true&w=majority";
@@ -45,7 +47,7 @@ module.exports.set = function (app) {
             await createUserData(
                 client,
                 {
-                    _id: "idFromCookie1",
+                    _id: req.user._id,
                     discordID: res.locals.discordID,
                     steamID: res.locals.steamID,
                     leagueID: res.locals.leagueID,
@@ -83,7 +85,7 @@ module.exports.set = function (app) {
         const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
         try {
             await client.connect();
-            let idOfUser = "idFromCookie1"; //--------------------------NEED COOKIE DATA
+            let idOfUser = req.user._id; //--------------------------NEED COOKIE DATA
             const result = await client.db("partyScoutUsers").collection("profileData").findOne({ _id: idOfUser });
             if (result) {
                 console.log('Found a listing in the collection with the id ' + idOfUser);
@@ -107,7 +109,7 @@ module.exports.set = function (app) {
         const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
         try {
             await client.connect();
-            let userId = "idFromCookie1"; //----------------NEEDS DATA FROM COOKIE
+            let userId = req.user._id; //----------------NEEDS DATA FROM COOKIE
             const result = await client.db("partyScoutUsers").collection("profileData").updateOne(
                 { _id: userId },
                 { $set: JSON.parse(JSON.stringify(req.query)) }
@@ -123,22 +125,22 @@ module.exports.set = function (app) {
         }
     }
 
-    app.get('/profile', (req, res) => {
+    app.get('/profile', ensureAuthenticated, (req, res) => {
 
     });
 
-    app.get('/get_profile', [findUserById], (req, res) => {
+    app.get('/get_profile', [ensureAuthenticated, findUserById], (req, res) => {
 
         res.send(res.locals.allUserData);
 
     });
 
-    app.get('/post_profile', [getProfileQuery, connection], (req, res) => {
+    app.get('/post_profile', [ensureAuthenticated, getProfileQuery, connection], (req, res) => {
 
         res.send('Created User in Database');
     });
 
-    app.get('/update_profile', [updateListingById], (req, res) => {
+    app.get('/update_profile', [ensureAuthenticated, updateListingById], (req, res) => {
 
         res.send('Updated User in Database');
 

@@ -1,3 +1,17 @@
-<h1 class="mt-4">Dashboard</h1>
-<p class="lead mb-3">Welcome {{user}}</p>
-<a href="/logout" class="btn btn-secondary">Logout</a>
+<!DOCTYPE html>
+<html>
+    <head>
+        {{> head}}
+    </head>
+    <body>
+        {{> topnav}}
+        <h1 class="mt-4">Dashboard</h1>
+        <br>
+        <h2 class="lead mb-3">Welcome {{user}}</h2>
+        <br>
+        <div class="wrap">
+            <a href="/logout" class="btn-6">Logout<span></span></a>
+        </div>
+        <script src="js/button.js"></script>
+    </body>
+</html>
