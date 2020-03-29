@@ -50,3 +50,26 @@ h2 {
     width: 50%;
     /*whatever width you want*/
   }
+  
+  .styleSelect select {
+    background: transparent;
+    width: 168px;
+    padding: 5px;
+    font-size: 16px;
+    line-height: 1;
+    border: 0;
+    border-radius: 0;
+    height: 34px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: #000;
+  }
+  
+  .styleSelect {
+    width: 140px;
+    height: 34px;
+    overflow: hidden;
+    background: url("images/downArrow.png") no-repeat right #fff;
+    border: 2px solid #000;
+  }

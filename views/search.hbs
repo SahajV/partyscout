@@ -8,24 +8,20 @@
     <div id="content" style="margin-top:75px">
       <div align="center">
           <form action="gameFinder" method="get">
-              <br>
-              <br>
-              <br>
-              <br>
-              <br>
-              <br>
               <h1>Game: </h1>
               <br>
               <br>
               <br>
               <br>
-              <select id="game" name="game">
-                  <option value="4" selected>Just chatting</option>
-                  <option value="0">League of Legends</option>
-                  <option value="1">Counter Strike: Global Offensive</option>
-                  <option value="2">Minecraft</option>
-                  <option value="3">Rainbow Six: Siege</option>
-              </select>
+              <div class="styleSelect">
+                <select id="game" name="game">
+                    <option value="4" selected>Just chatting</option>
+                    <option value="0">League of Legends</option>
+                    <option value="1">Counter Strike: Global Offensive</option>
+                    <option value="2">Minecraft</option>
+                    <option value="3">Rainbow Six: Siege</option>
+                </select>
+              </div>
               <br>
               <br>
               <br>
@@ -45,10 +41,10 @@
               </select>
               <br>
               <br>
-              <br>
-              <br>
-            
-              <button type="submit" class="btn-6">Submit</button>
+              <div class="wrap">
+                  <div class="btn-6" style="margin-top: 50px">find a party<span></span></div>
+              </div>
+              <script src="js/button.js"></script>
           </form>
       </div>
     </div>
