@@ -130,20 +130,14 @@ module.exports.set = function (app) {
     });
 
     app.get('/get_profile', [ensureAuthenticated, findUserById], (req, res) => {
-
         res.send(res.locals.allUserData);
-
     });
 
     app.get('/post_profile', [ensureAuthenticated, getProfileQuery, connection], (req, res) => {
-
         res.send('Created User in Database');
     });
 
     app.get('/update_profile', [ensureAuthenticated, updateListingById], (req, res) => {
-
         res.send('Updated User in Database');
-
     });
-
 }

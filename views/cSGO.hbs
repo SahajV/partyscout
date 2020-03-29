@@ -1,25 +1,26 @@
-<head>
-    {{> head}}
-</head>
+<!DOCTYPE html>
+<html>
+    <head>
+        {{> head}}
+    </head>
+    <body>
+        {{> topnav}}
+        <div id="content" style="margin-top:125px">
+            <div align="center">
+                <form action="gameFinder" method="get">
+                    <h1>Rank: </h1>
+                    <select id="rank">
+                        <option value="0">Silver</option>
+                        <option value="1">Silver Elite</option>
+                        <option value="2">Gold</option>
+                        <option value="3">Guardian Master</option>
+                        <option value="4">Legendary Eagle+</option>
+                    </select>
 
-<body>
-    {{> topnav}}
-    <section class="home"></section>
-
-    <div align="center">
-        <form action="gameFinder" method="get">
-
-            <h1>Rank: </h1>
-            <select id="rank">
-                <option value="0">Silver</option>
-                <option value="1">Silver Elite</option>
-                <option value="2">Gold</option>
-                <option value="3">Guardian Master</option>
-                <option value="4">Legendary Eagle+</option>
-            </select>
-
-            <br>
-            <button type="submit">Find your party</button>
-        </form>
-    </div>
-</body>
+                    <br>
+                    <button type="submit">Find your party</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
