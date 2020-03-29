@@ -1,36 +1,38 @@
-<head>
-    {{> head}}
-</head>
+<!DOCTYPE html>
+<html>
+    <head>
+        {{> head}}
+    </head>
+    <body>
+        {{> topnav}}
+        <div id="content" style="margin-top:125px">
+            <div align="center">
+                <form action="gameFinder" method="get">
+                    <h1>Lane: </h1>
+                    <select id="lane">
+                        <option value="0">Top</option>
+                        <option value="1">Mid</option>
+                        <option value="2">Bottom</option>
+                        <option value="3">Support</option>
+                        <option value="4">Jungle</option>
+                    </select>
+                    <br>
 
-<body>
-    {{> topnav}}
-    <section class="home"></section>
-
-    <div align="center">
-        <form action="gameFinder" method="get">
-            <h1>Lane: </h1>
-            <select id="lane">
-                <option value="0">Top</option>
-                <option value="1">Mid</option>
-                <option value="2">Bottom</option>
-                <option value="3">Support</option>
-                <option value="4">Jungle</option>
-            </select>
-            <br>
-
-            <h1>Rank: </h1>
-            <select id="rank">
-                <option value="0">Iron</option>
-                <option value="1">Bronze</option>
-                <option value="2">Silver</option>
-                <option value="3">Gold</option>
-                <option value="4">Platinum</option>
-                <option value="2">Diamond+</option>
-            </select>
+                    <h1>Rank: </h1>
+                    <select id="rank">
+                        <option value="0">Iron</option>
+                        <option value="1">Bronze</option>
+                        <option value="2">Silver</option>
+                        <option value="3">Gold</option>
+                        <option value="4">Platinum</option>
+                        <option value="2">Diamond+</option>
+                    </select>
 
 
-            <br>
-            <button type="submit">Find your party</button>
-        </form>
-    </div>
-</body>
+                    <br>
+                    <button type="submit">Find your party</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

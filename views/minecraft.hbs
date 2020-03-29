@@ -1,23 +1,26 @@
-<head>
-    {{> head}}
-</head>
+<!DOCTYPE html>
+<html>
+    <head>
+        {{> head}}
+    </head>
 
-<body>
-    {{> topnav}}
-    <section class="home"></section>
+    <body>
+        {{> topnav}}
+        <div id="content" style="margin-top:125px">
+            <div align="center">
+                <form action="gameFinder" method="get">
 
-    <div align="center">
-        <form action="gameFinder" method="get">
-
-            <h1>Mode: </h1>
-            <select id="mode">
-                <option value="0">Survival</option>
-                <option value="1">Creative</option>
-            </select>
-            
-            <br>
-            <br>
-            <button type="submit">Find your party</button>
-        </form>
-    </div>
-</body>
+                    <h1>Mode: </h1>
+                    <select id="mode">
+                        <option value="0">Survival</option>
+                        <option value="1">Creative</option>
+                    </select>
+                    
+                    <br>
+                    <br>
+                    <button type="submit">Find your party</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
