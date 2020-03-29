@@ -25,7 +25,7 @@ module.exports.set = function (app) {
 
     app.get('/findMatches', [ensureAuthenticated, initializePreferences, findUserByPreferences], (req, res) => {
         if (res.locals.matches.length > 0) {
-            res.render('match', {'matches': res.locals.matches});
+            //Add match database addition code here, res.locals.matches is an array of IDs that are matched with each other
         }
         else {
             res.render('match_failed');
