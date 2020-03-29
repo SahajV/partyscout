@@ -11,14 +11,16 @@ module.exports.set = function (app) {
 
 
             await client.connect();
-            res.locals.allSessions = await client.db("partyScoutUsers").collection("matchHistory").find({})
-                .toArray()
-                .then(items => {
-                    console.log(`Successfully found ${items.length} documents.`)
-                    items.forEach(console.log)
-                    return items
-                })
-                .catch(err => console.error(`Failed to find documents: ${err}`));
+            // res.locals.allSessions = await client.db("partyScoutUsers").collection("matchHistory").find({})
+            //     .toArray()
+            //     .then(items => {
+            //         console.log(`Successfully found ${items.length} documents.`)
+            //         items.forEach(console.log)
+            //         return items
+            //     })
+            //     .catch(err => console.error(`Failed to find documents: ${err}`));
+
+            res.locals.currentTeam = await  client.db("partyScoutUsers").collection("matchHistory").findOne({_id: req.user._id});
 
         } catch (e) {
             console.error(e);
@@ -39,8 +41,8 @@ module.exports.set = function (app) {
         next();
     }
 
-    app.get('/matches_worker', [getDocumentsInCollection, createMatchesArray], (req, res) => {
-        res.send(res.locals.finalL);
+    app.get('/matches_worker', [getDocumentsInCollection], (req, res) => {
+        res.send(res.locals.currentTeam.team);
 
     });
 
