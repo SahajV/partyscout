@@ -1,0 +1,50 @@
+html{
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+body{
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#experiment {
+  perspective: 2000px;
+  height: 100%; 
+  width: 100%; 
+  overflow: hidden;
+}
+
+.cube {
+  position: relative;
+  height: 100%; 
+  width: 100%; 
+  transform-style: preserve-3d;
+}
+.face {
+  position: absolute;
+  height: 100%; 
+  width: 100%; 
+  color: #fff;
+  transition: transform 1s linear;
+}
+.cube .front {
+  transform:  rotateY(-90deg) translateX(-50%) rotateY(0deg) translateX(50%) rotateY(90deg);
+  transform-origin: center center;
+  background-color:black;
+}
+
+.cube .side {
+  transform:  rotateY(-90deg) translateX(-50%) rotateY(-90deg) translateX(50%) rotateY(90deg); 
+  background-color:white;
+}
+
+.cube:focus .front {
+  transform:  rotateY(-90deg) translateX(-50%) rotateY(90deg) translateX(50%) rotateY(90deg);
+}
+
+.cube:focus .side {
+  transform:  rotateY(-90deg) translateX(-50%) rotateY(0deg) translateX(50%) rotateY(90deg); 
+}

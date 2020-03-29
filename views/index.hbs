@@ -4,33 +4,42 @@
         <link rel="icon" type="image/png" href="media/favicon.png">
         <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
         <link rel="stylesheet" type="text/css" href="stylesheets/button.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/cube.css">
         <title>partyscout</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script src="https://unpkg.com/blockstack@19.4.0-beta.1/dist/blockstack.js" integrity="sha384-SB5ZTUxSxlrMk3QBbqtewpVzllKVRD3JeT5RuZ3Tj4/1MuXaMphMCFCz1ht2qG80" crossorigin="anonymous"></script>
-        <script src="javascripts/main.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
         <link href="https://codepen.io/kjbrum/pen/myyZLq">
         <script src="https://s.codepen.io/assets/libs/modernizr.js"></script>
     </head>
 
-    <body>
-        <div class="fullscreen-bg__video" style="opacity:0.4;">
-            <video autoplay muted loop><source src="media/homepage.mp4"></video>
-        </div>
-        <div class="outer">
-            <div class="middle">
-                <div class="inner">
-                    <div align="center">
-                        <img src="media/logo.svg" style="width:100%; height:100%">
+    <body height="100%">
+        <div id="experiment">
+            <div id="cube" class="cube" align="center">
+                <div id="front" class="face front">
+                    <div class="fullscreen-bg__video" style="opacity:0.4;">
+                        <video autoplay muted loop><source src="media/homepage.mp4"></video>
                     </div>
-                    <div align="center">
-                        <h2>Find the perfect gaming team.</h2>
+                    <div class="outer">
+                        <div class="middle">
+                            <div class="inner">
+                                <div align="center">
+                                    <img src="media/logo.svg" style="width:100%; height:100%">
+                                </div>
+                                <div align="center">
+                                    <h2>Find the perfect gaming team.</h2>
+                                </div>
+                                <br>
+                                <div class="wrap">
+                                    <div class="btn-6" style="margin-top: 50px" onclick="rotate()">Sign in<span></span></div>
+                                </div>
+                                <script src="js/button.js"></script>
+                            </div>
+                        </div>
                     </div>
-                    <br>
-                    <div class="wrap">
-                        <a href="/login" class="btn-6" style="margin-top: 50px">Sign in<span></span></a>
-                    </div>
-                    <script src="js/button.js"></script>
+                </div>
+                <div id="side" class="face side">
+                    <!--side face text-->
                 </div>
             </div>
         </div>
