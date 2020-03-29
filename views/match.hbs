@@ -18,7 +18,7 @@
         <h3 id="pastMatches">Load to see</h3>
         
         <div class="wrap">
-            <div class="btn-6" style="margin-top: 50px" onclick="document.forms[0].submit()">find your party<span></span></div>
+            <div class="btn-6" style="margin-top: 50px" onclick="testMethod">find your party<span></span></div>
         </div>
         <script src="js/button.js"></script>
 
@@ -57,7 +57,26 @@
         }
 
         document.getElementById("pastMatches").innerHTML = s; 
-
-
     }
+
+    function testMethod () {
+        var responseArray = [["gang", "gang"], ["gang", "gang"], ["gang", "gang"]]
+        var s = "";
+
+        for(int n = 0; n < responseArray.length; n++){
+            s += responseArray[0][n];
+        }
+
+        document.getElementById("currentMatches").innerHTML = s; 
+        s = "";
+        
+        for(int n = 1; n < responseArray.length; n++){
+            for(int c = 0; c < responseArray[n].length; c++){
+                s += responseArray[n][c];
+            }
+        }
+
+        document.getElementById("pastMatches").innerHTML = s; 
+    }
+
 </script>
