@@ -124,8 +124,8 @@ module.exports.set = function (app) {
         res.render('profile', {userD: res.locals.allUserData});
     });
 
-    app.get('/settings', ensureAuthenticated, (req, res) => {
-        res.render('settings');
+    app.get('/settings', [ensureAuthenticated, module.exports.findUserById], (req, res) => {
+        res.render('settings', {userD: res.locals.allUserData});
     });
 
     app.get('/get_profile', [ensureAuthenticated, module.exports.findUserById], (req, res) => {
