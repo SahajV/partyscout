@@ -27,31 +27,28 @@ module.exports.set = function (app) {
         if (res.locals.matches.length > 0) {
             //Add match database addition code here, res.locals.matches is an array of IDs that are matched with each other
             console.log('this is the match')
-            console.log(res.locals.matches)
             res.locals.matches.push(req.user._id);
+            console.log(res.locals.matches)
 
-            for(var i = 0; i < res.locals.matches.length; i++) {
-                if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[i] }).count() > 0)
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: res.locals.matches[i] }, { $set: { team: res.locals.matches, game: res.locals.game } });
-                else
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: res.locals.matches[i], team: res.locals.matches, game: res.locals.game });
+            // console.log(req.query._id)
+            // let idOfUser = new require('mongodb').ObjectId(req.query._id);
+            // const result = await client.db("partyScoutUsers").collection("profileData").findOne({ _id: idOfUser });
 
-                if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[i] }).count() > 0)
+            for (var i = 0; i < res.locals.matches.length; i++) {
+                // console.log("try " + i)
+                // const result = await res.locals.client.db("partyScoutUsers").collection("profileData").findOne({ _id: req.user._id });
+                // console.log(result)
+                if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[i] }).count() > 0) {
+                    // console.log('attempting to update')
                     await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: res.locals.matches[i] }, { $set: { team: res.locals.matches, game: res.locals.game } });
-                else
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: res.locals.matches[i], team: res.locals.matches, game: res.locals.game });
 
-                if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[i] }).count() > 0)
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: res.locals.matches[i] }, { $set: { team: res.locals.matches, game: res.locals.game } });
-                else
+                }
+                else {
+                    // console.log('attempting to insert')
                     await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: res.locals.matches[i], team: res.locals.matches, game: res.locals.game });
-
-                if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[i] }).count() > 0)
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: res.locals.matches[i] }, { $set: { team: res.locals.matches, game: res.locals.game } });
-                else
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: res.locals.matches[i], team: res.locals.matches, game: res.locals.game });
+                }
             }
-            
+
             next();
         }
         else {

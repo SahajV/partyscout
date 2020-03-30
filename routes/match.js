@@ -20,7 +20,7 @@ module.exports.set = function (app) {
             //     })
             //     .catch(err => console.error(`Failed to find documents: ${err}`));
 
-            res.locals.currentTeam = await  client.db("partyScoutUsers").collection("matchHistory").findOne({_id: req.user._id});
+            res.locals.currentTeam = await client.db("partyScoutUsers").collection("matchHistory").findOne({ _id: req.user._id });
             console.log(res.locals.currentTeam)
         } catch (e) {
             console.error(e);
@@ -33,12 +33,14 @@ module.exports.set = function (app) {
 
     async function createMatchesArray(req, res, next) {
         res.locals.finalL = [];
-            for(var i = 0; i < res.locals.currentTeam.team.length; i++) {
-            let objTemp = await  client.db("userLoginData").collection("users").findOne({_id: res.locals.currentTeam.team[i]});
+        await client.connect();
+        for (var i = 0; i < res.locals.currentTeam.team.length; i++) {
+            let objTemp = await client.db("userLoginData").collection("users").findOne({ _id: res.locals.currentTeam.team[i] });
             console.log(objTemp)
             let nameTemp = objTemp.display_name
             res.locals.finalL.push(nameTemp)
         }
+        await client.close();
 
         next();
     }
