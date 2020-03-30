@@ -33,6 +33,7 @@ module.exports.set = function (app) {
 
     async function createMatchesArray(req, res, next) {
         res.locals.finalL = [];
+        const client = new module.exports.MongoClient(module.exports.uri, { useNewUrlParser: true, useUnifiedTopology: true });
         await client.connect();
         for (var i = 0; i < res.locals.currentTeam.team.length; i++) {
             let objTemp = await client.db("userLoginData").collection("users").findOne({ _id: res.locals.currentTeam.team[i] });
