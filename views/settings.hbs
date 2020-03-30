@@ -5,8 +5,10 @@
     </head>
     <body>
         {{> topnav}}
+        <br>
         <h1>Update your profile</h1>
-        <form action="update_profile" method="get">
+        <br>
+        <form action="update_profile" method="get" style="font-size:20px;">
             <label for="name" style="color:#03DAC6">Name:</label>
             <input type="text" id="name" name="name" value="{{userD.name}}" required><br>
             <label for="email" style="color:#03DAC6">Email:</label>
@@ -22,24 +24,24 @@
             <label for="originID" style="color:#03DAC6">Origin:</label>
             <input type="text" id="originID" name="originID" value="{{userD.originID}}"><br>
             <label for="facebookID" style="color:#03DAC6">Facebook:</label>
-            <input type="text" id="facebookID" name="facebookID"><br>
+            <input type="text" id="facebookID" name="facebookID" value="{{userD.facebookID}}"><br>
             <label for="twitterID" style="color:#03DAC6">Twitter:</label>
-            <input type="text" id="twitterID" name="twitterID"><br>
+            <input type="text" id="twitterID" name="twitterID" value="{{userD.twitterID}}"><br>
             <label for="epicID" style="color:#03DAC6">Epic Games:</label>
-            <input type="text" id="epicID" name="epicID"><br>
+            <input type="text" id="epicID" name="epicID" value="{{userD.epicID}}"><br>
             <label for="phone" style="color:#03DAC6">Phone:</label>
-            <input type="text" id="phone" name="phone"><br>
+            <input type="text" id="phone" name="phone" value="{{userD.phone}}"><br>
             <label for="age" style="color:#03DAC6">Age:</label>
-            <input type="text" id="age" name="age"><br>
+            <input type="text" id="age" name="age" value="{{userD.age}}"><br>
             <label for="gender" style="color:#03DAC6">Gender:</label>
-            <input type="text" id="gender" name="gender"><br>
+            <input type="text" id="gender" name="gender" value="{{userD.gender}}"><br>
             <label for="bio" style="color:#03DAC6">Bio:</label>
-            <input type="text" id="bio" name="bio"><br>
+            <input type="text" id="bio" name="bio" value="{{userD.bio}}"><br>
             <label for="description" style="color:#03DAC6">Description:</label>
-            <input type="text" id="description" name="description"><br>
+            <input type="text" id="description" name="description" value="{{userD.description}}"><br>
             <label for="country" style="color:#03DAC6">Country:</label>
-            <input type="text" id="country" name="country"><br>
-
+            <input type="text" id="country" name="country" value="{{userD.country}}"><br>
+            <br>
             <button class="btn btn-info" type="submit">Update Settings</button>
         </form>
     </body>
