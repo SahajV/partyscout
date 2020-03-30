@@ -89,7 +89,7 @@ module.exports.set = function (app) {
                                             bio: 'Gamers rise up',
                                             description: 'Gamer',
                                             country: 'Not provided',
-                                            profileURL: '/media/favicon.png'
+                                            profileURL: '/media/favicon2.png'
                                         }
                                     );
                                     req.flash(
