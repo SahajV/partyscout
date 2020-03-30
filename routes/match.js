@@ -36,7 +36,7 @@ module.exports.set = function (app) {
         const client = new module.exports.MongoClient(module.exports.uri, { useNewUrlParser: true, useUnifiedTopology: true });
         await client.connect();
         for (var i = 0; i < res.locals.currentTeam.team.length; i++) {
-            let objTemp = await client.db("userLoginData").collection("users").findOne({ _id: res.locals.currentTeam.team[i] });
+            let objTemp = await client.db("partyScoutUsers").collection("profileData").findOne({ _id: res.locals.currentTeam.team[i] });
             console.log(objTemp)
             let nameTemp = objTemp.display_name
             res.locals.finalL.push(nameTemp)

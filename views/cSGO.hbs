@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html style="overflow:hidden;">
     <head>
         {{> head}}
     </head>
     <body>
         {{> topnav}}
-        <div id="content" style="margin-top:75px">
-            <div align="center">
+        <div id="content" style="margin-top:50px">
+            <div class="wrapper">
+            <div class="csgo-background">
+                <div class="filter-black"></div>
+                <div class="container">
+            <div align="center" style:"margin-top:-5%;">
                 <form action="findMatches" method="get">
                     <h1>Rank: </h1>
                     <select id="rank" name="rank" class="select-css" style="font-family: 'Oxygen'">
@@ -30,7 +34,7 @@
                     </div>
                 </form>
                 <script src="js/button.js"></script>
-            </div>
+            </div></div></div></div>
         </div>
     </body>
 </html>

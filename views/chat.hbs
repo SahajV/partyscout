@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html style="overflow:hidden;">
     <head>
         {{> head}}
     </head>
     <body>
         {{> topnav}}
-        <div id="content" style="margin-top:75px">
+        <div id="content" style="margin-top:50px">
+            <div class="wrapper">
+            <div class="chat-background">
+                <div class="filter-black"></div>
+                <div class="container">
             <div align="center">
                 <form action="findMatches" method="get">
                     <h1>How many people?</h1>
@@ -22,7 +26,7 @@
                     </div>
                 </form>
                 <script src="js/button.js"></script>
-            </div>
+            </div></div></div></div>
         </div>
     </body>
 </html>

@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html style="overflow:hidden;">
     <head>
         {{> head}}
     </head>
     <body>
         {{> topnav}}
-        <div id="content" style="margin-top:75px">
-            <h1 class="mt-4">Dashboard</h1>
-            <br>
-            <h2 class="lead mb-3" style="color:white;">Welcome, {{user}}!</h2>
+        <div id="content" style="margin-top:50px">
+            <div class="wrapper">
+            <div class="dashboard-background">
+                <div class="filter-black"></div>
+                <div class="container">
+         <h1 class="mt-4">Welcome, {{user}}!</h1>
             <br>
             <div class="wrap">
-                <a href="/logout" class="btn-6">Logout<span></span></a>
+                <a href="/search" class="btn-6" style="font-family: 'Oxygen';">Find a party<span></span></a>
             </div>
+            </div>
+        </div>
+            </div> 
         </div>   
     </body>
 </html>

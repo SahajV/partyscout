@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html style="overflow:hidden;">
     <head>
         {{> head}}
     </head>
     <body>
         {{> topnav}}
-        <div id="content" style="margin-top:75px">
+        <div id="content" style="margin-top:50px">
+            <div class="wrapper">
+            <div class="lol-background">
+                <div class="filter-black"></div>
+                <div class="container">
             <div align="center">
-                <form action="findMatches" method="get">
+                <form action="findMatches" method="get" style="margin-top:-10%;">
                     <h1>Lane: </h1>
                     <select id="lane" name="lane" class="select-css" style="font-family: 'Oxygen'">
                         <option value="0" selected>Top</option>
@@ -43,6 +47,6 @@
 
                 <script src="js/button.js"></script>
             </div>
-        </div>
+        </div></div></div></div>
     </body>
 </html>

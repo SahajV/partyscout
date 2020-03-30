@@ -11,9 +11,7 @@
         <div align="center">
             <h2>Hello, {{userD.display_name}}!</h2>
 
-
-
-            <h1>Your Current Match(Click on user for info):</h1>
+            <h1>Your current party (click on any user for more info):</h1>
             <h2 style="color:aqua" id="currentMatches">None (yet!)</h2>
 
         </div>
@@ -37,7 +35,7 @@
                 document.getElementById('currentMatches').innerHTML+= '<a href="/profile?id='+responseArray[1][i]+'">'+responseArray[0][i]+'</a><br>';
             }
         }
-        
+
     </script>
 </body>
 

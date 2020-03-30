@@ -67,6 +67,181 @@
   position: relative;
   z-index: 3; }
 
+  .dashboard-background {
+    background-image: url("https://images.unsplash.com/photo-1560252719-59e35a3bbc6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80");
+    background-position: center center;
+    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+    position: absolute;
+    width: 100%; }
+
+  .dashboard-background .filter-black::after {
+    background-color: rgba(0, 0, 0, 0.5);
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1; }
+  
+  .dashboard-background .container {
+    margin-top: 11%;
+    position: relative;
+    z-index: 3; }
+
+    .gamesearch-background {
+      background-image: url("https://images.unsplash.com/photo-1537963447914-dbc04b81de27?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1300&q=80");
+      background-position: center center;
+      background-size: cover;
+      min-height: 100vh;
+      overflow: hidden;
+      position: absolute;
+      width: 100%; }
+  
+    .gamesearch-background .filter-black::after {
+      background-color: rgba(0, 0, 0, 0.5);
+      content: "";
+      display: block;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 1; }
+    
+    .gamesearch-background .container {
+      margin-top: 11%;
+      position: relative;
+      z-index: 3; }
+
+.lol-background {
+  background-image: url("https://sfx.thelazy.net/media/presetscreenshots/League_of_Legends_2015-09-27_17-19-44.png");
+  background-position: center center;
+  background-size: cover;
+  min-height: 100vh;
+  overflow: hidden;
+  position: absolute;
+  width: 100%; }
+
+.lol-background .filter-black::after {
+  background-color: rgba(0, 0, 0, 0.5);
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1; }
+
+.lol-background .container {
+  margin-top: 11%;
+  position: relative;
+  z-index: 3; }
+
+  .csgo-background {
+    background-image: url("https://i.ytimg.com/vi/FkfNNVApMlU/maxresdefault.jpg");
+    background-position: center center;
+    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+    position: absolute;
+    width: 100%; }
+  
+  .csgo-background .filter-black::after {
+    background-color: rgba(0, 0, 0, 0.5);
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1; }
+  
+  .csgo-background .container {
+    margin-top: 11%;
+    position: relative;
+    z-index: 3; }
+
+    .r6-background {
+      background-image: url("https://sm.ign.com/ign_pl/screenshot/default/rainbow-six-siege201503-30-15003jpg-fb47cc_37357_7aag.jpg");
+      background-position: center center;
+      background-size: cover;
+      min-height: 100vh;
+      overflow: hidden;
+      position: absolute;
+      width: 100%; }
+    
+    .r6-background .filter-black::after {
+      background-color: rgba(0, 0, 0, 0.5);
+      content: "";
+      display: block;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 1; }
+    
+    .r6-background .container {
+      margin-top: 11%;
+      position: relative;
+      z-index: 3; }
+
+      .minecraft-background {
+        background-image: url("https://i2.wp.com/bigtechquestion.com/wp-content/uploads/2018/08/2017-02-08_11.03.51.png?fit=990%2C524&ssl=1");
+        background-position: center center;
+        background-size: cover;
+        min-height: 100vh;
+        overflow: hidden;
+        position: absolute;
+        width: 100%; }
+      
+      .minecraft-background .filter-black::after {
+        background-color: rgba(0, 0, 0, 0.5);
+        content: "";
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1; }
+      
+      .minecraft-background .container {
+        margin-top: 11%;
+        position: relative;
+        z-index: 3; }
+        
+      .chat-background {
+        background-image: url("https://forum.playvesteria.com/uploads/default/original/2X/7/73b429681708c38c02f9b941f14de23af10bb90e.jpeg");
+        background-position: center center;
+        background-size: cover;
+        min-height: 100vh;
+        overflow: hidden;
+        position: absolute;
+        width: 100%; }
+      
+      .chat-background .filter-black::after {
+        background-color: rgba(0, 0, 0, 0.5);
+        content: "";
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1; }
+      
+      .chat-background .container {
+        margin-top: 11%;
+        position: relative;
+        z-index: 3; }
+
 .register-footer {
   bottom: 20px;
   color: #fff;
