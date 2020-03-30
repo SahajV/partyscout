@@ -29,27 +29,31 @@ module.exports.set = function (app) {
             console.log('this is the match')
             res.locals.matches.push(req.user._id);
             console.log(res.locals.matches)
+            try {
+                for (var i = 0; i < res.locals.matches.length; i++) {
+                    console.log("try " + i)
+                    let idOfUser = new require('mongodb').ObjectId(res.locals.matches[i]);
+                    // const result = await client.db("partyScoutUsers").collection("profileData").findOne({ _id: idOfUser });
+                    // const result = await res.locals.client.db("partyScoutUsers").collection("profileData").findOne({ _id: req.user._id });
+                    // console.log(result)
+                    if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: idOfUser }).count() > 0) {
+                        // console.log('attempting to update')
+                        await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: idOfUser }, { $set: { team: res.locals.matches, game: res.locals.game } });
 
-            // console.log(req.query._id)
-            // let idOfUser = new require('mongodb').ObjectId(req.query._id);
-            // const result = await client.db("partyScoutUsers").collection("profileData").findOne({ _id: idOfUser });
-
-            for (var i = 0; i < res.locals.matches.length; i++) {
-                // console.log("try " + i)
-                // const result = await res.locals.client.db("partyScoutUsers").collection("profileData").findOne({ _id: req.user._id });
-                // console.log(result)
-                if (await res.locals.client.db("partyScoutUsers").collection(res.locals.game + '_collection').find({ _id: res.locals.matches[i] }).count() > 0) {
-                    // console.log('attempting to update')
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").updateOne({ _id: res.locals.matches[i] }, { $set: { team: res.locals.matches, game: res.locals.game } });
-
+                    }
+                    else {
+                        // console.log('attempting to insert')
+                        await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: idOfUser, team: res.locals.matches, game: res.locals.game });
+                    }
                 }
-                else {
-                    // console.log('attempting to insert')
-                    await res.locals.client.db("partyScoutUsers").collection("matchHistory").insertOne({ _id: res.locals.matches[i], team: res.locals.matches, game: res.locals.game });
-                }
+
+
+            } catch (e) {
+                console.error(e);
+            } finally {
+                res.redirect('/matches')
             }
 
-            next();
         }
         else {
             res.render('match_failed');

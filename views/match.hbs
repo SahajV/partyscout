@@ -32,7 +32,11 @@
 
         function onServerResponse(responseArray) {
             console.log(responseArray);
-            document.getElementById('currentMatches').innerHTML = responseArray;
+            document.getElementById('currentMatches').innerHTML = "";
+            for(var i = 0; i < responseArray.length; i++) {
+                console.log(responseArray[i])
+                document.getElementById('currentMatches').innerHTML += responseArray[i] +'<br>';
+            }
         }
 
     </script>
