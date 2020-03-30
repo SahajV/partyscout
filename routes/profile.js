@@ -121,7 +121,11 @@ module.exports.set = function (app) {
     }
 
     app.get('/profile', [ensureAuthenticated, module.exports.findUserById], (req, res) => {
-        res.render('profile', {userD: res.locals.allUserData});
+        button = '<br>\n<form class="register-form" action="/settings" method="GET">\n<button class="btn btn-info" type="submit">Update profile</button>\n</form>'
+        if ('id' in req.query) {
+            button = ''
+        }
+        res.render('profile', {userD: res.locals.allUserData, settings_button: button});
     });
 
     app.get('/settings', [ensureAuthenticated, module.exports.findUserById], (req, res) => {
