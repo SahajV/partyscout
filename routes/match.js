@@ -47,7 +47,7 @@ module.exports.set = function (app) {
     }
 
     app.get('/matches_worker', [getDocumentsInCollection, createMatchesArray], (req, res) => {
-        res.send(res.locals.finalL);
+        res.send([res.locals.finalL, res.locals.currentTeam.team]);
 
     });
 

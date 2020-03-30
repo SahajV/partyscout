@@ -33,9 +33,8 @@
         function onServerResponse(responseArray) {
             console.log(responseArray);
             document.getElementById('currentMatches').innerHTML = "";
-            for(var i = 0; i < responseArray.length; i++) {
-                console.log(responseArray[i])
-                document.getElementById('currentMatches').innerHTML += responseArray[i] +'<br>';
+            for(var i = 0; i < responseArray[0].length; i++) {
+                document.getElementById('currentMatches').innerHTML+= '<a href="/profile?id='+responseArray[1][i]+'">'+responseArray[0][i]+'</a><br>';
             }
         }
 
