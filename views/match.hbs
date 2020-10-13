@@ -31,8 +31,13 @@
         function onServerResponse(responseArray) {
             console.log(responseArray);
             document.getElementById('currentMatches').innerHTML = "";
-            for(var i = 0; i < responseArray[0].length; i++) {
-                document.getElementById('currentMatches').innerHTML+= '<a href="/profile?id='+responseArray[1][i]+'">'+responseArray[0][i]+'</a><br>';
+            if (responseArray.length == 0)
+                document.getElementById('currentMatches').innerHTML = 'you do not have a party yet'
+            for(var i = 0; i < responseArray.length; i++) {
+                if (responseArray[i] == "you do not have a party yet")
+                    document.getElementById('currentMatches').innerHTML = 'you do not have a party yet'
+                else
+                    document.getElementById('currentMatches').innerHTML+= '<a href="/profile?id='+responseArray[i].id+'">'+responseArray[i].name+'</a><br>';
             }
         }
 
