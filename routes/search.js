@@ -4,12 +4,9 @@ const {
 const {
     client
 } = require("../config/mongo"); //PUT ensureAuthenticated on anything that needs to be checked
+const ObjectID = require("mongodb").ObjectID;
 
 module.exports.set = function(app) {
-    app.get("/search", ensureAuthenticated, (req, res) => {
-        res.render("search");
-    });
-
     const gameDict = {
         0: "LOL",
         1: "CSGO",
@@ -17,7 +14,11 @@ module.exports.set = function(app) {
         3: "R6",
         4: "chat"
     };
-    var userInputs = {};
+    let userInputs = {};  // map for each user's current request, will be overwritten upon searching again
+
+    app.get("/search", ensureAuthenticated, (req, res) => {
+        res.render("search");
+    });
 
     app.get("/gameFinder", ensureAuthenticated, (req, res) => {
         if (
@@ -37,107 +38,120 @@ module.exports.set = function(app) {
         "/findMatches",
         [
             ensureAuthenticated,
-            initializePreferences,
-            findUserByPreferences,
+            insertPreferences,
+            attemptFindMatches
         ],
         (req, res) => {
-            res.redirect("/matches")
+            if (res.locals.id != "") {
+                res.redirect("/match?id=" + res.locals.id)
+            } else {
+                res.redirect("/matchInProgress");
+            }
         }
     );
 
-    async function initializePreferences(req, res, next) {
+    app.get(
+        "/matchInProgress",
+        [
+            ensureAuthenticated
+        ],
+        (req, res) => {
+            res.render('match_failed');
+        }
+    );
+
+    async function insertPreferences(req, res, next) {
         if (!(req.user._id in userInputs)) {
             res.redirect("/search");
         }
         res.locals.game = gameDict[userInputs[req.user._id]["game"]];
         res.locals.preferences = req.query;
-        res.locals.preferences["language"] = userInputs[req.user._id]["language"];
+        res.locals.preferences.language = userInputs[req.user._id]["language"];
+        res.locals.preferences.partySize = parseInt(res.locals.preferences.partySize);
+        res.locals.preferences.id = req.user._id;
+        res.locals.preferences.submissionTime = Date.now();
+        let duplicateParams = {...res.locals.preferences}
+        delete duplicateParams._id;
+        delete duplicateParams.submissionTime;
+        delete duplicateParams.game;
+        if (!await client
+            .db("partyScoutUsers")
+            .collection(res.locals.game + "_collection")
+            .findOne(duplicateParams)) {
+                await client
+                    .db("partyScoutUsers")
+                    .collection(res.locals.game + "_collection")
+                    .insertOne(res.locals.preferences);
+            }
         next();
     }
 
-    async function findUserByPreferences(req, res, next) {
-        const collection_name = res.locals.game + "_collection";
-        const preferences = res.locals.preferences; // {language: languageOfUser, rank: rankOfUser, ...}
-        const partySize = parseInt(preferences.partySize);
-
-        try {
-            console.log(collection_name);
-            console.log(preferences);
-            await client
-                .db("partyScoutUsers")
-                .collection(collection_name)
-                .find(preferences)
-                .toArray((error, documents) => {
-                    console.log("documents");
-                    console.log(documents);
-
-                    if (error) throw error;
-
-                    documents.sort(compare);
-                    let matches = [];
-
-                    console.log(documents);
-                    for (idx = 0; idx < documents.length; idx++) {
-                        timeElapsed = Date.now() - documents[idx].submissionTime;
-                        if (
-                            timeElapsed > 604800000 ||
-                            req.user["_id"].equals(documents[idx]["id"])
-                        ) {
-                            // one week expiry
-                            client
-                                .db("partyScoutUsers")
-                                .collection(collection_name)
-                                .deleteOne(documents[idx]);
-                        } else {
-                            // if (req.user._id != documents[idx]['id'])
-                            console.log("Potential match");
-                            console.log(documents[idx]);
-                            matches.push(documents[idx]["id"]);
-                            if (matches.length + 1 == partySize) {
-                                for (idx2 = 0; idx2 < matches.length; idx2++) {
-                                    // client.db("partyScoutUsers").collection(collection_name).deleteOne(matches[idx2]);
-                                }
-                                break;
+    async function attemptFindMatches(req, res, next) {
+        let searchParams = {...res.locals.preferences}
+        delete searchParams._id;
+        delete searchParams.id;
+        delete searchParams.submissionTime;
+        delete searchParams.game;
+        let possibleMatches = await client
+            .db("partyScoutUsers")
+            .collection(res.locals.game + "_collection")
+            .find(searchParams)
+            .toArray()
+            .catch((err) => console.error(`Failed to find documents: ${err}`));
+        console.log(searchParams)
+        console.log(possibleMatches)
+        res.locals.id = "";
+        if (possibleMatches.length >= searchParams.partySize) { // not enough possible matches for a full party, abort
+            res.locals.id = new ObjectID();
+            let finalList = [];
+            const gameDictFull = {
+                "LOL": "League of Legends",
+                "CSGO": "Counter Strike: Global Offensive",
+                "minecraft": "Minecraft",
+                "R6": "Rainbow Six: Siege",
+                "chat": "Just chatting",
+            };
+            for (let index = 0; index < searchParams.partySize; index++) {
+                let currentUser = await client
+                    .db("partyScoutUsers")
+                    .collection("profileData")
+                    .findOne({
+                        _id: possibleMatches[index].id
+                    });
+                let currentUserName = currentUser.display_name;
+                finalList.push({
+                    name: currentUserName,
+                    url: '/profile?id=' + possibleMatches[index].id
+                });
+                await client
+                    .db("partyScoutUsers")
+                    .collection(res.locals.game + "_collection")
+                    .deleteOne({
+                        id: possibleMatches[index].id
+                    });
+                await client
+                    .db("partyScoutUsers")
+                    .collection("previousMatches")
+                    .updateOne({
+                        _id: currentUser._id
+                    }, {
+                        "$push": {
+                            previousMatches: {
+                                'url': '/match?id=' + res.locals.id,
+                                'name': gameDictFull[res.locals.game] + ' ~ ' + searchParams.partySize + ' people ~ ' + new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
                             }
                         }
-                    }
-
-                    console.log("Matches: " + matches.toString());
-                    console.log("Matches length: " + matches.length);
-                    console.log("Party size: " + partySize);
-                    // if (matches.length + 1 >= partySize) {
-                    //     console.log('Found matches: ' + matches);
-                    //     res.locals.matches = matches;
-                    // }
-                    // else {
-                    preferences["id"] = req.user._id;
-                    preferences["submissionTime"] = Date.now();
-                    console.log(preferences);
-                    const resultNew = client
-                        .db("partyScoutUsers")
-                        .collection(collection_name)
-                        .insertOne(preferences);
-                    console.log(
-                        "Added " + preferences.toString() + " to " + collection_name
-                    );
-                    console.log(resultNew);
-                    res.locals.matches = [];
-                    // }
-                    next();
+                    });
+            }
+            await client
+                .db("partyScoutUsers")
+                .collection("matchURLs")
+                .insertOne({
+                    _id: res.locals.id,
+                    game: gameDictFull[res.locals.game],
+                    matchList: finalList
                 });
-        } catch (e) {
-            console.error(e);
-            next();
-        } finally {}
-    }
-
-    function compare(a, b) {
-        if (a.submissionTime < b.submissionTime) {
-            return -1;
         }
-        if (a.submissionTime > b.submissionTime) {
-            return 1;
-        }
-        return 0;
+        next();
     }
 };

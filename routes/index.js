@@ -18,7 +18,6 @@ module.exports.set = function (app) {
       user: req.user.display_name
     })
   );
-
   search.set(app);
   users.set(app);
   profile.set(app);

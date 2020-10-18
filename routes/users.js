@@ -4,6 +4,9 @@ const passport = require('passport');
 const User = require('../models/User');
 const profile = require('./profile.js');
 const { forwardAuthenticated } = require('../config/auth');
+const {
+    client
+} = require("../config/mongo"); //PUT ensureAuthenticated on anything that needs to be checked
 
 module.exports.set = function (app) {
 
@@ -89,9 +92,17 @@ module.exports.set = function (app) {
                                             bio: 'Gamers rise up',
                                             description: 'Gamer',
                                             country: 'Not provided',
-                                            profileURL: '/media/favicon2.png'
+                                            profileURL: '/media/favicon2.png',
+                                            coverURL: '/media/cover.png'
                                         }
                                     );
+                                    client
+                                        .db("partyScoutUsers")
+                                        .collection("previousMatches")
+                                        .insertOne({
+                                            _id: user._id,
+                                            previousMatches: []
+                                        });
                                     req.flash(
                                         'success_msg',
                                         'You are now registered and can log in'

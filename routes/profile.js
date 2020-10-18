@@ -13,16 +13,11 @@ module.exports.createUserData = async (newListing) => {
 module.exports.findUserById = async (req, res, next) => {
     try {
         let idOfUser = 'id' in req.query ? new require('mongodb').ObjectId(req.query.id) : req.user._id; //--------------------------NEED COOKIE DATA
-        console.log(idOfUser)
         const result = await client.db("partyScoutUsers").collection("profileData").findOne({
             _id: idOfUser
         });
         if (result) {
-            console.log('Found a listing in the collection with the id ' + idOfUser);
-            // console.log(result);
             res.locals.allUserData = result;
-        } else {
-            console.log('No listings found with the id ' + idOfUser)
         }
     } catch (e) {
         console.error(e);
@@ -33,7 +28,6 @@ module.exports.findUserById = async (req, res, next) => {
 
 module.exports.set = function(app) {
     function getProfileQuery(req, res, next) {
-
         res.locals.discordID = req.query.discordID;
         res.locals.steamID = req.query.steamID;
         res.locals.leagueID = req.query.leagueID;
@@ -54,6 +48,7 @@ module.exports.set = function(app) {
         res.locals.province = req.query.province;
         res.locals.city = req.query.city;
         res.locals.profileURL = req.query.profileURL;
+        res.locals.coverURL = req.query.coverURL;
         res.locals.languages = req.query.languages;
 
         next();
@@ -84,6 +79,7 @@ module.exports.set = function(app) {
                 province: res.locals.province,
                 city: res.locals.city,
                 profileURL: res.locals.profileURL,
+                coverURL: res.locals.coverURL,
                 languages: res.locals.languages
             });
 

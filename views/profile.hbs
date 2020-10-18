@@ -2,6 +2,16 @@
 <html>
     <head>
         {{> head}}
+        <style>
+            .profile-background {
+                background-image: url({{userD.coverURL}});
+                background-position: center center;
+                background-size: cover;
+                height: 300px;
+                position: relative;
+                margin-top: -110px;
+            }
+        </style>
     </head>
     <body>
         {{> topnav}}
@@ -15,7 +25,7 @@
                         <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3 text-center">
                             <div class="avatar">
                                 <img src="{{userD.profileURL}}" alt="Circle Image"
-                                    class="img-circle img-no-padding img-responsive">
+                                    class="img-circle img-responsive">
                             </div>
                         </div>
                     </div>

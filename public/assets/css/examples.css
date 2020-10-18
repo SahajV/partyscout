@@ -43,7 +43,7 @@
   color: #FFF; }
 
 .register-background {
-  background-image: url("https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80");
+  background-image: url("https://images.unsplash.com/photo-1537963447914-dbc04b81de27?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1300&q=80");
   background-position: center center;
   background-size: cover;
   min-height: 100vh;
@@ -93,7 +93,7 @@
     z-index: 3; }
 
     .gamesearch-background {
-      background-image: url("https://images.unsplash.com/photo-1537963447914-dbc04b81de27?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1300&q=80");
+      background-image: url("https://images.pexels.com/photos/735911/pexels-photo-735911.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
       background-position: center center;
       background-size: cover;
       min-height: 100vh;
