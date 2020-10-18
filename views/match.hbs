@@ -1,47 +1,30 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        {{> head}}
+    </head>
+    <body>
+        {{> topnav}}
+        <div id="content" style="margin-top:75px">
+            <div align="center">
+                <h2>Hello, {{userInfo.display_name}}!</h2>
 
-<head>
-    {{> head}}
-</head>
+                <h1>Your current party (click on any user for more info):</h1>
+                <h2 style="color:aqua" id="currentMatches">None (yet!)</h2>
 
-<body>
-    {{> topnav}}
-    <div id="content" style="margin-top:75px">
-        <div align="center">
-            <h2>Hello, {{userD.display_name}}!</h2>
-
-            <h1>Your current party (click on any user for more info):</h1>
-            <h2 style="color:aqua" id="currentMatches">None (yet!)</h2>
-
+            </div>
         </div>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script type="text/javascript">
-
-        $(document).ready(() => {
-            var ajax_params = {
-                'url': "/matches_worker",
-                'type': "get",
-                'success': onServerResponse
-            }
-            $.ajax(ajax_params)
-        });
-
-        function onServerResponse(responseArray) {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script type="text/javascript">
+            console.log("{{matchArray}}".replaceAll("&quot;", '"'))
+            let responseArray = JSON.parse("{{matchArray}}".replaceAll("&quot;", '"'));
             console.log(responseArray);
-            document.getElementById('currentMatches').innerHTML = "";
-            if (responseArray.length == 0)
-                document.getElementById('currentMatches').innerHTML = 'you do not have a party yet'
-            for(var i = 0; i < responseArray.length; i++) {
-                if (responseArray[i] == "you do not have a party yet")
-                    document.getElementById('currentMatches').innerHTML = 'you do not have a party yet'
-                else
-                    document.getElementById('currentMatches').innerHTML+= '<a href="/profile?id='+responseArray[i].id+'">'+responseArray[i].name+'</a><br>';
+            if (responseArray) {
+                document.getElementById('currentMatches').innerHTML = "";
+                for (var i = 0; i < responseArray.length; i++) {
+                    document.getElementById('currentMatches').innerHTML += '<a href="/profile?id='+responseArray[i].id+'">'+responseArray[i].name+'</a><br>';
+                }
             }
-        }
-
-    </script>
-</body>
-
+        </script>
+    </body>
 </html>

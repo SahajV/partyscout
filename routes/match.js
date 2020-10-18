@@ -46,8 +46,10 @@ module.exports.set = function (app) {
       useUnifiedTopology: true,
     });
     await client.connect();
+
+    res.locals.finalList = [];
+
     if (res.locals.myMatches.length == 0) {
-      res.locals.finalL = ["you do not have a party yet"];
       next();
     }
 
@@ -58,65 +60,43 @@ module.exports.set = function (app) {
       )
         currentMatch = res.locals.myMatches[index];
     }
-    let temp = { ...currentMatch };
-    delete temp._id;
-    delete temp.id;
-    delete temp.submissionTime;
-    delete temp.game;
+    let searchParams = { ...currentMatch };  // example: { partySize: '2', language: '0' }
+    delete searchParams._id;
+    delete searchParams.id;
+    delete searchParams.submissionTime;
+    delete searchParams.game;
     console.log("++++++++++++++++++++++++++");
-    console.log(temp);
-    console.log("my current match: ", currentMatch);
-    let mygameDb = await client
+    console.log("searchParams:", searchParams);
+    let possibleMatches = await client
       .db("partyScoutUsers")
       .collection(currentMatch.game + "_collection")
-      .find(temp)
+      .find(searchParams)
       .toArray()
       .catch((err) => console.error(`Failed to find documents: ${err}`));
-
-    // let mygameDb = []
-    // for (let index = 0; index < mygameDb1.length; index++) {
-    //     if (mygameDb1[index].id != currentMatch.id) {
-    //         console.log('ids:',mygameDb1[index].id,'+',currentMatch.id,':ids')
-    //         mygameDb.push(mygameDb1[index])
-    //     }
-        
-    // }
-    // console.log("FINAL DB 1", mygameDb);
-
-    if (mygameDb.length < currentMatch.partySize - 1) {
-      res.locals.finalL = [];
+    console.log("possibleMatches:", possibleMatches);
+    if (possibleMatches.length < searchParams.partySize) {  // not enough possible matches for a full party, abort
       next();
     }
-    for (let index = 0; index < currentMatch.partySize - 1; index++) {
+
+    for (let index = 0; index < currentMatch.partySize; index++) {
       let objTemp = await client
         .db("partyScoutUsers")
         .collection("profileData")
-        .findOne({ _id: mygameDb[index].id });
+        .findOne({ _id: possibleMatches[index].id });
       console.log(objTemp);
       let nameTemp = objTemp.display_name;
-      if (res.locals.finalL == null) res.locals.finalL = [];
-
-      if (mygameDb[index].id.toString().trim() != currentMatch.id.toString().trim()) {
-        console.log('hello', mygameDb[index].id , currentMatch.id)
-        res.locals.finalL.push({ name: nameTemp, id: mygameDb[index].id });
+      if (possibleMatches[index].id.toString().trim() != currentMatch.id.toString().trim()) {
+        console.log('hello', possibleMatches[index].id , currentMatch.id)
+        res.locals.finalList.push({ name: nameTemp, id: possibleMatches[index].id });
       }
     }
     await client.close();
 
-    console.log("FINAL DB ", mygameDb);
-    console.log("FINAL PARTY ", res.locals.finalL);
+    console.log("FINAL PARTY ", res.locals.finalList);
     next();
   }
 
-  app.get(
-    "/matches_worker",
-    [getDocumentsInCollection, createMatchesArray],
-    (req, res) => {
-      res.send(res.locals.finalL);
-    }
-  );
-
-  app.get("/matches", ensureAuthenticated, (req, res) => {
-    res.render("match", { userD: req.user, array: req.groups });
+  app.get("/matches", [ensureAuthenticated, getDocumentsInCollection, createMatchesArray], (req, res) => {
+    res.render("match", { userInfo: req.user, matchArray: JSON.stringify(res.locals.finalList) });
   });
 };
