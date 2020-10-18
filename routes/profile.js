@@ -1,41 +1,37 @@
-const {ensureAuthenticated} = require('../config/auth');
-module.exports.MongoClient = require('mongodb').MongoClient;
-module.exports.uri = "mongodb+srv://sahajV:BqBCuf7ID4vn7uEh@gameconnectcluster-zoadx.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const {
+    ensureAuthenticated
+} = require('../config/auth');
+const {
+    client
+} = require("../config/mongo"); //PUT ensureAuthenticated on anything that needs to be checked
 
 module.exports.createUserData = async (newListing) => {
-    const client = new module.exports.MongoClient(module.exports.uri, { useNewUrlParser: true, useUnifiedTopology: true });
-    await client.connect();
     const result = await client.db("partyScoutUsers").collection("profileData").insertOne(newListing);
     console.log('New Listing created with the following ID: ' + result.insertedId);
-    await client.close();
-    // console.log(result);
 }
 
 module.exports.findUserById = async (req, res, next) => {
-    const client = new module.exports.MongoClient(module.exports.uri, { useNewUrlParser: true, useUnifiedTopology: true });
     try {
-        await client.connect();
         let idOfUser = 'id' in req.query ? new require('mongodb').ObjectId(req.query.id) : req.user._id; //--------------------------NEED COOKIE DATA
         console.log(idOfUser)
-        const result = await client.db("partyScoutUsers").collection("profileData").findOne({ _id: idOfUser });
+        const result = await client.db("partyScoutUsers").collection("profileData").findOne({
+            _id: idOfUser
+        });
         if (result) {
             console.log('Found a listing in the collection with the id ' + idOfUser);
             // console.log(result);
             res.locals.allUserData = result;
-        }
-        else {
+        } else {
             console.log('No listings found with the id ' + idOfUser)
         }
-
     } catch (e) {
         console.error(e);
     } finally {
-        await client.close();
         next();
     }
 }
 
-module.exports.set = function (app) {
+module.exports.set = function(app) {
     function getProfileQuery(req, res, next) {
 
         res.locals.discordID = req.query.discordID;
@@ -66,32 +62,30 @@ module.exports.set = function (app) {
     async function connection(req, res, next) {
         try {
             //--------------------------NEED COOKIE DATA 
-            await module.exports.createUserData(
-                {
-                    _id: req.user._id,
-                    discordID: res.locals.discordID,
-                    steamID: res.locals.steamID,
-                    leagueID: res.locals.leagueID,
-                    blizzardID: res.locals.blizzardID,
-                    originID: res.locals.originID,
-                    facebookID: res.locals.facebookID,
-                    twitterID: res.locals.twitterID,
-                    snapchatID: res.locals.snapchatID,
-                    epicID: res.locals.epicID,  
-                    email: res.locals.email,
-                    display_name: req.query.display_name,
-                    phone: res.locals.phone,
-                    age: res.locals.age,
-                    gender: res.locals.gender,
-                    name: res.locals.name,
-                    bio: res.locals.bio,
-                    country: res.locals.country,
-                    province: res.locals.province,
-                    city: res.locals.city,
-                    profileURL: res.locals.profileURL,
-                    languages: res.locals.languages
-                }
-            );
+            await module.exports.createUserData({
+                _id: req.user._id,
+                discordID: res.locals.discordID,
+                steamID: res.locals.steamID,
+                leagueID: res.locals.leagueID,
+                blizzardID: res.locals.blizzardID,
+                originID: res.locals.originID,
+                facebookID: res.locals.facebookID,
+                twitterID: res.locals.twitterID,
+                snapchatID: res.locals.snapchatID,
+                epicID: res.locals.epicID,
+                email: res.locals.email,
+                display_name: req.query.display_name,
+                phone: res.locals.phone,
+                age: res.locals.age,
+                gender: res.locals.gender,
+                name: res.locals.name,
+                bio: res.locals.bio,
+                country: res.locals.country,
+                province: res.locals.province,
+                city: res.locals.city,
+                profileURL: res.locals.profileURL,
+                languages: res.locals.languages
+            });
 
         } catch (e) {
             console.error(e);
@@ -101,21 +95,19 @@ module.exports.set = function (app) {
     };
 
     async function updateListingById(req, res, next) {
-        const client = new module.exports.MongoClient(module.exports.uri, { useNewUrlParser: true, useUnifiedTopology: true });
         try {
-            await client.connect();
             let userId = req.user._id; //----------------NEEDS DATA FROM COOKIE
-            const result = await client.db("partyScoutUsers").collection("profileData").updateOne(
-                { _id: userId },
-                { $set: JSON.parse(JSON.stringify(req.query)) }
-            );
+            const result = await client.db("partyScoutUsers").collection("profileData").updateOne({
+                _id: userId
+            }, {
+                $set: JSON.parse(JSON.stringify(req.query))
+            });
 
             console.log(result.modifiedCount + ' documents(s) was/were updated');
 
         } catch (e) {
             console.error(e);
         } finally {
-            await client.close();
             next();
         }
     }
@@ -125,11 +117,16 @@ module.exports.set = function (app) {
         if ('id' in req.query) {
             button = ''
         }
-        res.render('profile', {userD: res.locals.allUserData, settings_button: button});
+        res.render('profile', {
+            userD: res.locals.allUserData,
+            settings_button: button
+        });
     });
 
     app.get('/settings', [ensureAuthenticated, module.exports.findUserById], (req, res) => {
-        res.render('settings', {userD: res.locals.allUserData});
+        res.render('settings', {
+            userD: res.locals.allUserData
+        });
     });
 
     app.get('/get_profile', [ensureAuthenticated, module.exports.findUserById], (req, res) => {

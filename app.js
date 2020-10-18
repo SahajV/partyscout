@@ -15,7 +15,7 @@ const session = require('express-session');
 //-----------------------------------------------------------oAuth work---------------------//
 
 require('./config/passport')(passport);
-const db = require('./config/keys').mongoURI;
+const db = require('./config/keys').authURI;
 
 // Connect to MongoDB 
 mongoose
